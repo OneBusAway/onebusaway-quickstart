@@ -1,0 +1,34 @@
+<assembly>
+    <id>onebusaway-phone-webapp</id>
+    <formats>
+        <format>war</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>org.onebusaway:onebusaway-phone-webapp</include>
+            </includes>
+            <unpack>true</unpack>
+            <unpackOptions>
+                <excludes>
+                    <exclude>**/data-sources.xml</exclude>
+                </excludes>
+            </unpackOptions>
+            <scope>runtime</scope>
+        </dependencySet>
+        <dependencySet>
+            <outputDirectory>WEB-INF/lib</outputDirectory>
+            <includes>
+                <include>org.hsqldb:hsqldb</include>
+            </includes>
+        </dependencySet>
+    </dependencySets>
+    <fileSets>
+        <fileSet>
+            <directory>src/integration-test/resources/onebusaway-phone-webapp</directory>
+            <outputDirectory>WEB-INF/classes</outputDirectory>
+        </fileSet>
+    </fileSets>
+</assembly>
