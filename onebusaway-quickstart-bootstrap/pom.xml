@@ -4,18 +4,14 @@
   <parent>
     <artifactId>onebusaway-quickstart</artifactId>
     <groupId>org.onebusaway</groupId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.2.0-SNAPSHOT</version>
   </parent>
   <groupId>org.onebusaway</groupId>
   <artifactId>onebusaway-quickstart-bootstrap</artifactId>
   <name>onebusaway-quickstart-bootstrap</name>
 
   <properties>
-<!--    <jetty.version>6.1.26</jetty.version>-->
     <jetty.version>7.4.0.v20110414</jetty.version>
-<!--    7.0.0.v20091005-->
-    <jetty.jsp.version>6.1H.14.1</jetty.jsp.version>
-    <el.version>6.0.32</el.version>
   </properties>
 
   <dependencies>
@@ -23,48 +19,9 @@
     <dependency>
       <groupId>org.onebusaway</groupId>
       <artifactId>onebusaway-transit-data-federation</artifactId>
-      <version>${onebusaway.version}</version>
+      <version>${onebusaway_version}</version>
       <scope>provided</scope>
     </dependency>
-
-    <!-- <dependency> -->
-    <!-- <groupId>org.mortbay.jetty</groupId> -->
-    <!-- <artifactId>jetty-embedded</artifactId> -->
-    <!-- <version>${jetty.version}</version> -->
-    <!-- </dependency> -->
-    <!-- jsp support for jetty, add the 2 following -->
-    <!-- <dependency> -->
-    <!-- <groupId>javax.servlet.jsp</groupId> -->
-    <!-- <artifactId>jsp-api</artifactId> -->
-    <!-- <version>2.1</version> -->
-    <!-- </dependency> -->
-    <!-- <dependency> -->
-    <!-- <groupId>javax.servlet</groupId> -->
-    <!-- <artifactId>jstl</artifactId> -->
-    <!-- <version>1.2</version> -->
-    <!-- </dependency> -->
-    <!-- <dependency> -->
-    <!-- <groupId>org.mortbay.jetty</groupId> -->
-    <!-- <artifactId>jsp-2.1</artifactId> -->
-    <!-- <version>${jetty.jsp.version}</version> -->
-    <!-- <type>jar</type> -->
-    <!-- </dependency> -->
-    <!-- <dependency> -->
-    <!-- <groupId>org.mortbay.jetty</groupId> -->
-    <!-- <artifactId>jsp-api-2.1</artifactId> -->
-    <!-- <version>${jetty.jsp.version}</version> -->
-    <!-- <type>jar</type> -->
-    <!-- </dependency> -->
-    <!-- <dependency> -->
-    <!-- <groupId>org.apache.tomcat</groupId> -->
-    <!-- <artifactId>el-api</artifactId> -->
-    <!-- <version>${el.version}</version> -->
-    <!-- </dependency> -->
-    <!-- <dependency> -->
-    <!-- <groupId>org.apache.tomcat</groupId> -->
-    <!-- <artifactId>jasper-el</artifactId> -->
-    <!-- <version>${el.version}</version> -->
-    <!-- </dependency> -->
 
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -106,8 +63,6 @@
       <artifactId>jsp-2.1-glassfish</artifactId>
       <version>9.1.1.B60.25.p2</version>
     </dependency>
-
-
 
     <dependency>
       <groupId>commons-cli</groupId>

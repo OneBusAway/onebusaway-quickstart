@@ -8,14 +8,14 @@
   </parent>
   <groupId>org.onebusaway</groupId>
   <artifactId>onebusaway-quickstart</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.2.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>onebusaway-quickstart</name>
   <description>Quickly build and deploy a basic OneBusAway instance</description>
 
   <properties>
-    <onebusaway.version>0.2.0-SNAPSHOT</onebusaway.version>
+    <onebusaway_version>0.2.0-SNAPSHOT</onebusaway_version>
     <wiki.integration.version>0.1.0-SNAPSHOT</wiki.integration.version>
     <hsqldb.port>9930</hsqldb.port>
   </properties>
@@ -32,6 +32,14 @@
     <developerConnection>scm:svn:https://onebusaway.googlecode.com/svn/onebusaway-quickstart/trunk</developerConnection>
     <url>http://code.google.com/p/onebusaway/source/browse/#svn/onebusaway-quickstart/trunk</url>
   </scm>
+
+  <distributionManagement>
+    <!-- Even though we specify this in the parent pom, we need to specify it here to have full control over the url -->
+    <site>
+      <id>${site_id}</id>
+      <url>${site_url}</url>
+    </site>
+  </distributionManagement>
 
   <modules>
     <module>onebusaway-quickstart-bootstrap</module>
