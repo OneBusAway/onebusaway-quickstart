@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>onebusaway-quickstart</artifactId>
+    <groupId>org.onebusaway</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>org.onebusaway</groupId>
+  <artifactId>onebusaway-quickstart-webapp</artifactId>
+  <packaging>war</packaging>
+
+  <name>onebusaway-quickstart-webapp</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.onebusaway</groupId>
+      <artifactId>onebusaway-wiki-integration-file</artifactId>
+      <version>${wiki.integration.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.struts</groupId>
+      <artifactId>struts2-core</artifactId>
+      <version>2.1.8.1</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.5</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <finalName>onebusaway-quickstart-webapp</finalName>
+  </build>
+</project>

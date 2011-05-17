@@ -1,0 +1,66 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>onebusaway-quickstart</artifactId>
+    <groupId>org.onebusaway</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>org.onebusaway</groupId>
+  <artifactId>onebusaway-quickstart-assembly</artifactId>
+
+  <name>onebusaway-quickstart-assembly</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.onebusaway</groupId>
+      <artifactId>onebusaway-quickstart-bootstrap</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.onebusaway</groupId>
+      <artifactId>onebusaway-webapp</artifactId>
+      <version>${onebusaway.version}</version>
+      <type>war</type>
+    </dependency>
+    <dependency>
+      <groupId>org.onebusaway</groupId>
+      <artifactId>onebusaway-api-webapp</artifactId>
+      <version>${onebusaway.version}</version>
+      <type>war</type>
+    </dependency>
+    <dependency>
+      <groupId>org.onebusaway</groupId>
+      <artifactId>onebusaway-transit-data-federation-webapp</artifactId>
+      <version>${onebusaway.version}</version>
+      <type>war</type>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <descriptors>
+                <descriptor>assembly.xml</descriptor>
+              </descriptors>
+              <archive>
+                <manifest>
+                  <mainClass>org.onebusaway.quickstart.bootstrap.BootstrapMain</mainClass>
+                </manifest>
+              </archive>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
