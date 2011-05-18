@@ -4,16 +4,26 @@ onebusaway-quickstart
   
   <<Current Version:>> ${currentVersion}
   
-  This quick-start guide is targeted to OneBusAway Version ${onebusaway_version}
+  This quick-start guide is targeted to OneBusAway version ${onebusaway_version}.  To get started, follow these instructions:
   
-  To get started, follow these instructions:
-  
-Quickest-Start
+Quick-Start
 
-  At a high level, you'll need the OneBusAway quick-start distribution and a {{{http://code.google.com/transit/spec/transit_feed_specification.html} GTFS}} feed of transit data for your transit agency.  We'll use the OneBusAway quick-start app to build a transit data bundle, an optimized bundle of data built on top of the raw transit data designed to power the OneBusAway apps.  Once built, we spin up the most common webapps using the bundle.
+#if( $currentVersion.contains('SNAPSHOT') )
+  #set( $url = 'http://nexus.onebusaway.org/service/local/artifact/maven/content?r=snapshots&g=org.onebusaway&a=onebusaway-quickstart-assembly&c=full&e=war&v=' + ${currentVersion} )
+#else
+  #set( $url = 'http://nexus.onebusaway.org/content/repositories/public/org/onebusaway/onebusaway-quickstart-assembly/' + ${currentVersion} + '/onebusaway-quickstart-assembly-' + ${currentVersion} + '.war' )
+#end
+
+  At a high level, you'll need the OneBusAway quick-start distribution and a {{{http://code.google.com/transit/spec/transit_feed_specification.html}GTFS}} feed of transit data for your transit agency.  We'll use the OneBusAway quick-start app to build a transit data bundle: an optimized bundle of data built on top of the raw transit data designed to power the OneBusAway apps.  Once built, we spin up the most common webapps using the bundle.
   
-  # Download {{{http://nexus.onebusaway.org/content/repositories/public/org/onebusaway/onebusaway-quickstart-assembly/${currentVersion}/onebusaway-quickstart-assembly-${currentVersion}.war}onebusaway-quickstart-assembly.war}}
-  # Make sure you have downloaded the {{{http://code.google.com/transit/spec/transit_feed_specification.html} GTFS}} for your transit agency
-  # Run <<<java -jar onebusaway-quickstart-assembly.war -build path/to/your/gtfs.zip path/to/created-transit-bundle>>>
-  # Run <<< java -jar onebusaway-quickstart-assembly.war -webapp path/to/created-transit-bundle>>>
-  # Once the webapp has finished startup, browse to {{{http://localhost:8080/}}}
+  [[1]] Download {{{${url}}onebusaway-quickstart-assembly.war}}
+  
+  [[1]] Make sure you have also downloaded the {{{http://code.google.com/transit/spec/transit_feed_specification.html}GTFS}} for your transit agency
+  
+  [[1]] Run <<<java -jar onebusaway-quickstart-assembly.war -build path/to/your/gtfs.zip path/to/created-transit-bundle>>>
+  
+  [[1]] Run <<< java -jar onebusaway-quickstart-assembly.war -webapp path/to/created-transit-bundle>>>
+  
+  [[1]] Once the webapp has finished startup, browse to {{{http://localhost:8080/}http://localhost:8080/}}
+
+  Depending on the size of your GTFS feed, you may need to specify a higher Java heap size (-Xmx500MB).
