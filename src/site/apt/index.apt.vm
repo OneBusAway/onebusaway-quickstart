@@ -14,13 +14,17 @@ Quick-Start
   #set( $url = 'http://nexus.onebusaway.org/content/repositories/public/org/onebusaway/onebusaway-quickstart-assembly/' + ${currentVersion} + '/onebusaway-quickstart-assembly-' + ${currentVersion} + '.war' )
 #end
 
-  At a high level, you'll need the OneBusAway quick-start distribution and a {{{http://code.google.com/transit/spec/transit_feed_specification.html}GTFS}} feed of transit data for your transit agency.  We'll use the OneBusAway quick-start app to build a transit data bundle: an optimized bundle of data built on top of the raw transit data designed to power the OneBusAway apps.  Once built, we spin up the most common webapps using the bundle.
+  These instructions assume some comfort with the command-line in a Unix-like environment.  At a bare minimum, you'll need the {{{http://www.java.com/en/}Java}} installed on your system along with the OneBusAway quick-start distribution.
+
+  You also need data.  At minimum, you'll need {{{http://code.google.com/transit/spec/transit_feed_specification.html}GTFS}} static schedule data feed for your target transit agency.  Optionally, you can also supply {{{http://www.openstreetmap.org/}Open Street Map}} data for your area.  We will automatically download OSM for your area by default, but this can be a bit slow (in the <<<otp_graph>>> phase), so if you already have an OSM file for your region, things can go much faster.
+  
+  We'll use the OneBusAway quick-start app to build a transit data bundle: an optimized bundle of data built on top of the raw transit data designed to power the OneBusAway apps.  Once built, we spin up the most common webapps using the bundle.
   
   [[1]] Download {{{${url}}onebusaway-quickstart-assembly.war}}
   
   [[1]] Make sure you have also downloaded the {{{http://code.google.com/transit/spec/transit_feed_specification.html}GTFS}} for your transit agency
   
-  [[1]] Run <<<java -jar onebusaway-quickstart-assembly.war -build path/to/your/gtfs.zip path/to/created-transit-bundle>>>
+  [[1]] Run <<<java -jar onebusaway-quickstart-assembly.war -build path/to/gtfs.zip path/to/created-transit-bundle>>>
   
   [[1]] Run <<< java -jar onebusaway-quickstart-assembly.war -webapp path/to/created-transit-bundle>>>
   
@@ -28,4 +32,6 @@ Quick-Start
   
   []
 
-  Depending on the size of your GTFS feed, you may need to specify a higher Java heap size (-Xmx500MB).
+  Depending on the size of your GTFS feed, you may need to specify a higher Java heap size (-Xmx500MB).  If you optionally want to specify your own OSM data source, you can use the following command line:
+  
+  * <<<java -jar onebusaway-quickstart-assembly.war -build -osm path/to/data.osm path/to/gtfs.zip path/to/created-transit-bundle>>>

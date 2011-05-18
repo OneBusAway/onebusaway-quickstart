@@ -134,6 +134,8 @@ public class BootstrapMain {
   private static URLClassLoader bootstrapClasspath(URL warUrl, File tmpDir,
       boolean includeWarLibs) {
 
+    System.err.println("Extracting the bootstrap classpath.  This may take a few moments...");
+    
     try {
 
       List<URL> urls = new ArrayList<URL>();
