@@ -25,5 +25,7 @@ Quick-Start
   [[1]] Run <<< java -jar onebusaway-quickstart-assembly.war -webapp path/to/created-transit-bundle>>>
   
   [[1]] Once the webapp has finished startup, browse to {{{http://localhost:8080/}http://localhost:8080/}}
+  
+  []
 
   Depending on the size of your GTFS feed, you may need to specify a higher Java heap size (-Xmx500MB).
