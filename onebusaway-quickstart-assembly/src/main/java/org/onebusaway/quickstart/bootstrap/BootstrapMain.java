@@ -28,14 +28,14 @@ import java.util.jar.JarInputStream;
  * 
  */
 public class BootstrapMain {
-
+  
   public static void main(String[] args) throws Exception {
 
     if (args.length == 0) {
       usage();
       System.exit(-1);
     }
-
+    
     /**
      * This bit of code locates the URL of the WAR from where we're being
      * executed
@@ -68,7 +68,16 @@ public class BootstrapMain {
       Class<?> c = classloader.loadClass("org.onebusaway.quickstart.bootstrap.BuildBootstrapMain");
       Method method = c.getMethod("main", String[].class);
       invokeWithProperClassloader(classloader, method, (Object) subArgs);
+    
     } else if ("-webapp".equals(firstArg)) {
+      
+      String tempPath = System.getProperty("java.io.tmpdir");
+
+      /**
+       * A fix to handle the crazy path the Mac JVM returns that cause problems for embedded Jetty
+       */
+      if (tempPath.startsWith("/var/folders/"))
+        System.setProperty("java.io.tmpdir", "/tmp");
 
       /**
        * Bootstrap the classpath by extracting the JARs in our WAR into the
@@ -81,8 +90,7 @@ public class BootstrapMain {
       Class<?> c = classloader.loadClass("org.onebusaway.quickstart.bootstrap.WebappBootstrapMain");
       Method method = c.getMethod("run", URL.class, String[].class);
       invokeWithProperClassloader(classloader, method, warUrl, subArgs);
-    } else if ("-buildAndWebapp".equals(firstArg)) {
-
+    
     } else {
       System.err.println("unexpected first arg: " + firstArg);
       usage();
