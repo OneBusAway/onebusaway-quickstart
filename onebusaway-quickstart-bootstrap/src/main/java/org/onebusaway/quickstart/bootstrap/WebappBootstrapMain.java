@@ -42,7 +42,7 @@ public class WebappBootstrapMain {
     WebAppContext context = new WebAppContext();
     context.setServer(server);
     context.setContextPath("/");
-
+    context.setWelcomeFiles(new String[] {"index.action"});
     context.setWar(warUrl.toExternalForm());
 
     // server.addHandler(context);

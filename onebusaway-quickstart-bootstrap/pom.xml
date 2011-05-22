@@ -11,7 +11,7 @@
   <name>onebusaway-quickstart-bootstrap</name>
 
   <properties>
-    <jetty.version>7.4.0.v20110414</jetty.version>
+    <jetty.version>7.4.1.v20110513</jetty.version>
   </properties>
 
   <dependencies>

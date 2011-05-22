@@ -50,7 +50,15 @@
   <bean id="wikiRenderingService" class="org.onebusaway.wiki.xwiki.impl.XWikiRenderingServiceImpl">
     <property name="wikiDocumentViewUrl" value="/p/%{documentName}.action" />
     <property name="wikiDocumentEditUrl" value="http://wiki.onebusaway.org/bin/edit/Main/%{documentName}" />
-    <property name="wikiAttachmentUrl" value="http://wiki.onebusaway.org/bin/download/Main/%{documentName}/%{attachmentName}" />
+    <property name="wikiAttachmentUrl" value="/p/%{documentName}@%{attachmentName}!attachment.action" />
+  </bean>
+  
+  <bean class="org.onebusaway.presentation.impl.configuration.PropertyConfigurationSource">
+    <property name="properties">
+      <props>
+        <prop key="webapp_template_override">/WEB-INF/custom-header.jspx</prop>
+      </props>
+    </property>
   </bean>
 
 </beans>
