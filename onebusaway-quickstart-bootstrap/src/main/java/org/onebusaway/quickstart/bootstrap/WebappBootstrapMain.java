@@ -13,6 +13,8 @@ import org.eclipse.jetty.webapp.WebAppContext;
 
 public class WebappBootstrapMain {
 
+  private static final String ARG_PORT = "port";
+
   public static void run(URL warUrl, String[] args) throws Exception {
 
     Options options = createOptions();
@@ -29,6 +31,10 @@ public class WebappBootstrapMain {
     String bundlePath = args[0];
 
     System.setProperty("bundlePath", bundlePath);
+    
+    int port = 8080;
+    if (cli.hasOption(ARG_PORT))
+      port = Integer.parseInt(cli.getOptionValue(ARG_PORT));
 
     Server server = new Server();
     SocketConnector connector = new SocketConnector();
@@ -36,7 +42,7 @@ public class WebappBootstrapMain {
     // Set some timeout options to make debugging easier.
     connector.setMaxIdleTime(1000 * 60 * 60);
     connector.setSoLingerTime(-1);
-    connector.setPort(8080);
+    connector.setPort(port);
     server.setConnectors(new Connector[] {connector});
 
     WebAppContext context = new WebAppContext();
@@ -77,6 +83,7 @@ public class WebappBootstrapMain {
 
   private static Options createOptions() {
     Options options = new Options();
+    options.addOption(ARG_PORT, true, "port (default=8080)");
     return options;
   }
 }
