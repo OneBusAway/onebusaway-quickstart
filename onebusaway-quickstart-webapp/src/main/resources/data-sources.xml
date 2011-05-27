@@ -41,8 +41,6 @@
     </property>
   </bean>
 
-  <bean id="serviceArea" class="org.onebusaway.presentation.impl.DefaultServiceAreaServiceImpl" />
-
   <bean id="wikiDocumentService" class="org.onebusaway.wiki.file.ClasspathWikiDocumentServiceImpl">
     <property name="packageRoot" value="org.onebusaway.quickstart.wiki" />
   </bean>
