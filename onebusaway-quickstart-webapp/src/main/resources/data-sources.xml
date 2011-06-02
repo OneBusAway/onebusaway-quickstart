@@ -32,6 +32,10 @@
   <bean class="org.onebusaway.users.impl.CreateApiKeyAction">
     <property name="key" value="TEST"/>
   </bean>
+  
+  <bean class="org.onebusaway.users.impl.CreateApiKeyAction">
+    <property name="key" value="org.onebusaway.iphone"/>
+  </bean>
 
   <bean id="externalGeocoderImpl" class="org.onebusaway.geocoder.impl.DatabaseCachingGeocoderImpl">
     <property name="geocoderService">
