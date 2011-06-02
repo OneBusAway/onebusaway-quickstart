@@ -32,6 +32,6 @@ Quick-Start
   
   []
 
-  Depending on the size of your GTFS feed, you may need to specify a higher Java heap size (-Xmx500MB).  If you optionally want to specify your own OSM data source, you can use the following command line:
+  Depending on the size of your GTFS feed, you may need to specify a higher Java heap size (-Xmx500M or -Xmx1G).  If you optionally want to specify your own OSM data source, you can add the following command line option after <<<-build>>>:
   
-  * <<<java -jar onebusaway-quickstart-assembly.war -build -osm path/to/data.osm path/to/gtfs.zip path/to/created-transit-bundle>>>
+  * <<<-osm path/to/data.osm path/to/gtfs.zip>>>
