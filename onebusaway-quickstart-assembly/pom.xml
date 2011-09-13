@@ -50,7 +50,8 @@
             </goals>
             <configuration>
               <descriptors>
-                <descriptor>assembly.xml</descriptor>
+                <descriptor>assembly-api-webapp.xml</descriptor>
+                <descriptor>assembly-webapp.xml</descriptor>
               </descriptors>
               <archive>
                 <manifest>
