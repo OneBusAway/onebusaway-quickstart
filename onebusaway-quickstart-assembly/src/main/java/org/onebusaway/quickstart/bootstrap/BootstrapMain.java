@@ -16,12 +16,9 @@
 package org.onebusaway.quickstart.bootstrap;
 
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
@@ -33,6 +30,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
+
+import org.onebusaway.quickstart.BootstrapCommon;
+
 
 /**
  * This is the bootstrap entry point for the onebusaway-quickstart WAR that
@@ -158,24 +158,7 @@ public class BootstrapMain {
   }
 
   private static void usage() {
-    InputStream is = BootstrapMain.class.getResourceAsStream("usage.txt");
-    BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-    String line = null;
-    try {
-      while ((line = reader.readLine()) != null) {
-        System.err.println(line);
-      }
-    } catch (IOException ex) {
-
-    } finally {
-      if (reader != null) {
-        try {
-          reader.close();
-        } catch (IOException ex) {
-
-        }
-      }
-    }
+    BootstrapCommon.printUsage(BootstrapMain.class, "usage.txt");
   }
 
   private static URLClassLoader bootstrapClasspath(URL warUrl, File tmpDir,

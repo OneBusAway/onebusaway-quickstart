@@ -10,6 +10,7 @@
       <useAllReactorProjects>true</useAllReactorProjects>
       <includes>
         <include>org.onebusaway:onebusaway-quickstart-assembly</include>
+        <include>org.onebusaway:onebusaway-quickstart-common</include>
       </includes>
       <binaries>
         <outputDirectory>/</outputDirectory>
@@ -35,9 +36,21 @@
               <exclude>org.onebusaway:onebusaway-api-webapp:war</exclude>
               <exclude>org.onebusaway:onebusaway-webapp:war</exclude>
               <exclude>org.onebusaway:onebusaway-transit-data-federation-webapp:war</exclude>
+              <exclude>org.onebusaway:onebusaway-wiki-integration-api</exclude>
+              <exclude>org.onebusaway:onebusaway-wiki-integration-file</exclude>
             </excludes>
           </dependencySet>
         </dependencySets>
+      </binaries>
+    </moduleSet>
+    <moduleSet>
+      <useAllReactorProjects>true</useAllReactorProjects>
+      <includes>
+        <include>org.onebusaway:onebusaway-quickstart-webapp</include>
+      </includes>
+      <binaries>
+        <outputDirectory>/WEB-INF/lib</outputDirectory>
+        <unpack>false</unpack>
       </binaries>
     </moduleSet>
   </moduleSets>

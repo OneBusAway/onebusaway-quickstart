@@ -12,6 +12,7 @@
       <useAllReactorProjects>true</useAllReactorProjects>
       <includes>
         <include>org.onebusaway:onebusaway-quickstart-assembly</include>
+        <include>org.onebusaway:onebusaway-quickstart-common</include>
       </includes>
       <binaries>
         <outputDirectory>/</outputDirectory>
