@@ -19,6 +19,12 @@
         </param-value>
         <!-- classpath:org/onebusaway/api/application-context-webapp.xml -->
     </context-param>
+    
+    <!-- We set a custom Spring ApplicationContext class for loading bean definitions from the command line -->
+    <context-param>
+      <param-name>contextClass</param-name>
+      <param-value>org.onebusaway.quickstart.webapp.BootstrapWebApplicationContext</param-value>
+    </context-param>
 
     <!-- Filters -->
     <filter>

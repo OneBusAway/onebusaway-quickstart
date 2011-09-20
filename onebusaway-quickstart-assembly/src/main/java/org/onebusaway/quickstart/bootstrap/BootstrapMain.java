@@ -1,9 +1,12 @@
 package org.onebusaway.quickstart.bootstrap;
 
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
@@ -28,14 +31,14 @@ import java.util.jar.JarInputStream;
  * 
  */
 public class BootstrapMain {
-  
+
   public static void main(String[] args) throws Exception {
 
-    if (args.length == 0) {
+    if (args.length == 0 || isHelp(args[0])) {
       usage();
       System.exit(-1);
     }
-    
+
     /**
      * This bit of code locates the URL of the WAR from where we're being
      * executed
@@ -68,13 +71,14 @@ public class BootstrapMain {
       Class<?> c = classloader.loadClass("org.onebusaway.quickstart.bootstrap.BuildBootstrapMain");
       Method method = c.getMethod("main", String[].class);
       invokeWithProperClassloader(classloader, method, (Object) subArgs);
-    
+
     } else if ("-webapp".equals(firstArg)) {
-      
+
       String tempPath = System.getProperty("java.io.tmpdir");
 
       /**
-       * A fix to handle the crazy path the Mac JVM returns that cause problems for embedded Jetty
+       * A fix to handle the crazy path the Mac JVM returns that cause problems
+       * for embedded Jetty
        */
       if (tempPath.startsWith("/var/folders/"))
         System.setProperty("java.io.tmpdir", "/tmp");
@@ -90,12 +94,18 @@ public class BootstrapMain {
       Class<?> c = classloader.loadClass("org.onebusaway.quickstart.bootstrap.WebappBootstrapMain");
       Method method = c.getMethod("run", URL.class, String[].class);
       invokeWithProperClassloader(classloader, method, warUrl, subArgs);
-    
+
     } else {
       System.err.println("unexpected first arg: " + firstArg);
       usage();
       System.exit(-1);
     }
+  }
+
+  private static boolean isHelp(String option) {
+    option = option.replaceAll("-", "");
+    option = option.toLowerCase();
+    return option.equals("help") || option.equals("h") || option.equals("?");
   }
 
   private static void invokeWithProperClassloader(URLClassLoader classloader,
@@ -133,17 +143,31 @@ public class BootstrapMain {
   }
 
   private static void usage() {
-    System.err.println("usage:");
-    System.err.println("  -build ...");
-    System.err.println("  -webapp ...");
-    System.err.println("  -buildAndWebapp ...");
+    InputStream is = BootstrapMain.class.getResourceAsStream("usage.txt");
+    BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+    String line = null;
+    try {
+      while ((line = reader.readLine()) != null) {
+        System.err.println(line);
+      }
+    } catch (IOException ex) {
+
+    } finally {
+      if (reader != null) {
+        try {
+          reader.close();
+        } catch (IOException ex) {
+
+        }
+      }
+    }
   }
 
   private static URLClassLoader bootstrapClasspath(URL warUrl, File tmpDir,
       boolean includeWarLibs) {
 
     System.err.println("Extracting the bootstrap classpath.  This may take a few moments...");
-    
+
     try {
 
       List<URL> urls = new ArrayList<URL>();
@@ -177,7 +201,7 @@ public class BootstrapMain {
        */
       if ((name.startsWith("META-INF/bootstrap-lib") || (includeWarLibs && name.startsWith("WEB-INF/lib")))
           && name.endsWith(".jar")) {
-        
+
         name = name.replace("META-INF/", "");
 
         File outputJar = new File(tmpDir, name);

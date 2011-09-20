@@ -6,10 +6,11 @@
   </formats>
   <includeBaseDirectory>false</includeBaseDirectory>
   <moduleSets>
+    <!-- Copy the onebusaway-quickstart-assembly classes (primarily BootstrapMain) into the root of the war,
+         as if it was a jar -->
     <moduleSet>
       <useAllReactorProjects>true</useAllReactorProjects>
       <includes>
-        <include>org.onebusaway:onebusaway-quickstart-webapp</include>
         <include>org.onebusaway:onebusaway-quickstart-assembly</include>
       </includes>
       <binaries>
@@ -18,6 +19,10 @@
         <includeDependencies>false</includeDependencies>
       </binaries>
     </moduleSet>
+    <!-- Copy the onebusaway-quickstart-bootstrap.jar and all it's dependencies into the /META-INF/bootstrap-lib
+         directory.  The dependencies primarily include all the Jetty dependencies.  The BootstrapMain will
+         automatically load these into the bootstrap classpath as needed.  Note that the way this works is that we
+         are actually working with ALL the dependencies  -->
     <moduleSet>
       <useAllReactorProjects>true</useAllReactorProjects>
       <includes>
@@ -36,13 +41,32 @@
               <exclude>org.onebusaway:onebusaway-webapp:war</exclude>
               <exclude>org.onebusaway:onebusaway-api-webapp:war</exclude>
               <exclude>org.onebusaway:onebusaway-transit-data-federation-webapp:war</exclude>
+              <exclude>org.onebusaway:onebusaway-wiki-integration-api</exclude>
+              <exclude>org.onebusaway:onebusaway-wiki-integration-file</exclude>
             </excludes>
           </dependencySet>
         </dependencySets>
       </binaries>
     </moduleSet>
+    <moduleSet>
+      <useAllReactorProjects>true</useAllReactorProjects>
+      <includes>
+        <include>org.onebusaway:onebusaway-quickstart-webapp</include>
+      </includes>
+      <binaries>
+        <outputDirectory>/WEB-INF/lib</outputDirectory>
+        <unpack>false</unpack>
+      </binaries>
+    </moduleSet>
   </moduleSets>
   <dependencySets>
+    <dependencySet>
+      <includes>
+        <include>org.onebusaway:onebusaway-wiki-integration-file</include>
+      </includes>
+      <outputDirectory>/WEB-INF/lib</outputDirectory>
+      <unpack>false</unpack>
+    </dependencySet>
     <dependencySet>
       <includes>
         <include>org.onebusaway:onebusaway-webapp:war</include>
@@ -56,8 +80,15 @@
           <exclude>WEB-INF/web.xml</exclude>
           <exclude>WEB-INF/classes/data-sources*.xml</exclude>
           <exclude>WEB-INF/classes/struts.xml</exclude>
+          <exclude>WEB-INF/lib/commons-cli*.jar</exclude>
         </excludes>
       </unpackOptions>
     </dependencySet>
   </dependencySets>
+  <fileSets>
+    <fileSet>
+      <directory>src/main/assembly/onebusaway-quickstart-webapp</directory>
+      <outputDirectory>/</outputDirectory>
+    </fileSet>
+  </fileSets>
 </assembly>

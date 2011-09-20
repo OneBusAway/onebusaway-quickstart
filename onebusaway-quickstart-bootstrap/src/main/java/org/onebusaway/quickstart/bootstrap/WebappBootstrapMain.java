@@ -10,12 +10,19 @@ import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.bio.SocketConnector;
 import org.eclipse.jetty.webapp.WebAppContext;
+import org.onebusaway.quickstart.BootstrapCommon;
+import org.onebusaway.quickstart.WebappCommon;
 
 public class WebappBootstrapMain {
 
   private static final String ARG_PORT = "port";
 
   public static void run(URL warUrl, String[] args) throws Exception {
+
+    if (args.length == 0 || isHelp(args)) {
+      BootstrapCommon.printUsage(WebappBootstrapMain.class, "usage-webapp.txt");
+      System.exit(-1);
+    }
 
     Options options = createOptions();
     Parser parser = new GnuParser();
@@ -24,14 +31,13 @@ public class WebappBootstrapMain {
     args = cli.getArgs();
 
     if (args.length != 1) {
-      usage();
+      BootstrapCommon.printUsage(WebappBootstrapMain.class, "usage-webapp.txt");
       System.exit(-1);
     }
 
     String bundlePath = args[0];
-
     System.setProperty("bundlePath", bundlePath);
-    
+
     int port = 8080;
     if (cli.hasOption(ARG_PORT))
       port = Integer.parseInt(cli.getOptionValue(ARG_PORT));
@@ -50,8 +56,9 @@ public class WebappBootstrapMain {
     context.setContextPath("/");
     context.setWelcomeFiles(new String[] {"index.action"});
     context.setWar(warUrl.toExternalForm());
-
-    // server.addHandler(context);
+    // We store the command line object as a webapp context attribute so it can
+    // be used by the context loader to inject additional beans as needed
+    context.setAttribute(WebappCommon.COMMAND_LINE_CONTEXT_ATTRIBUTE, cli);
     server.setHandler(context);
 
     try {
@@ -77,13 +84,25 @@ public class WebappBootstrapMain {
     }
   }
 
-  private static void usage() {
-    System.err.println("webapp usage: [opts] bundlePath");
+  private static boolean isHelp(String[] options) {
+    for (String option : options) {
+      option = option.replaceAll("-", "");
+      option = option.toLowerCase();
+      if (option.equals("help") || option.equals("h") || option.equals("?"))
+        return true;
+    }
+    return false;
   }
 
   private static Options createOptions() {
     Options options = new Options();
     options.addOption(ARG_PORT, true, "port (default=8080)");
+    options.addOption(WebappCommon.ARG_GTFS_REALTIME_TRIP_UPDATES_URL, true, "");
+    options.addOption(WebappCommon.ARG_GTFS_REALTIME_VEHICLE_POSITIONS_URL,
+        true, "");
+    options.addOption(WebappCommon.ARG_GTFS_REALTIME_ALERTS_URL, true, "");
+    options.addOption(WebappCommon.ARG_GTFS_REALTIME_REFRESH_INTERVAL, true, "");
     return options;
   }
+
 }

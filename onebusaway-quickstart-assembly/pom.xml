@@ -35,6 +35,12 @@
       <version>${onebusaway_version}</version>
       <type>war</type>
     </dependency>
+    <!-- We use this for onebusaway-webapp -->
+    <dependency>
+      <groupId>org.onebusaway</groupId>
+      <artifactId>onebusaway-wiki-integration-file</artifactId>
+      <version>${wiki.integration.version}</version>
+    </dependency>
   </dependencies>
 
   <build>
