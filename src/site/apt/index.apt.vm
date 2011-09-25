@@ -19,7 +19,7 @@ Quick-Start
   
   [[1]] Download the right quickstart webapp for you:
   
-    * The full webapp: {{{${webapp_url}}onebusaway-quickstart-assembly-webapp.war}} - Includes the {{{https://code.google.com/p/onebusaway/wiki/OneBusAwayRestApi}REST API} and web interface
+    * The full webapp: {{{${webapp_url}}onebusaway-quickstart-assembly-webapp.war}} - Includes the {{{https://code.google.com/p/onebusaway/wiki/OneBusAwayRestApi}REST API}} and web interface
     
     * The API-only webapp: {{{${api_webapp_url}}onebusaway-quickstart-assembly-api-webapp.war}} - Includes just the {{{https://code.google.com/p/onebusaway/wiki/OneBusAwayRestApi}REST API}}
   
