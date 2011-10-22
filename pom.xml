@@ -46,6 +46,7 @@
     <module>onebusaway-quickstart-mains</module>
     <module>onebusaway-quickstart-webapp</module>
     <module>onebusaway-quickstart-assembly</module>
+    <module>onebusaway-quickstart-bootstrap</module>
   </modules>
 
   <dependencyManagement>
