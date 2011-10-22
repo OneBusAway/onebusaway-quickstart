@@ -81,9 +81,8 @@
             </goals>
             <configuration>
               <descriptors>
-<!--                 <descriptor>assembly-api-webapp.xml</descriptor> -->
-                <descriptor>assembly-test-webapp.xml</descriptor>
-<!--                 <descriptor>assembly-webapp.xml</descriptor> -->
+                <descriptor>assembly-api-webapp.xml</descriptor>
+                <descriptor>assembly-webapp.xml</descriptor>
               </descriptors>
               <archive>
                 <manifest>
