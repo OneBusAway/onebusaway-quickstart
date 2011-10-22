@@ -1,85 +1,36 @@
 <assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
-  <id>webapp</id>
+  <id>test-webapp</id>
   <formats>
     <format>war</format>
   </formats>
   <includeBaseDirectory>false</includeBaseDirectory>
-  <moduleSets>
-    <!-- Copy the onebusaway-quickstart-assembly classes (primarily BootstrapMain) into the root of the war,
-         as if it was a jar -->
-    <moduleSet>
-      <useAllReactorProjects>true</useAllReactorProjects>
-      <includes>
-        <include>org.onebusaway:onebusaway-quickstart-assembly</include>
-        <include>org.onebusaway:onebusaway-quickstart-common</include>
-      </includes>
-      <binaries>
-        <outputDirectory>/</outputDirectory>
-        <unpack>true</unpack>
-        <includeDependencies>false</includeDependencies>
-      </binaries>
-    </moduleSet>
-    <!-- Copy the onebusaway-quickstart-mains.jar and all it's dependencies into the /META-INF/bootstrap-lib
-         directory.  The dependencies primarily include all the Jetty dependencies.  The BootstrapMain will
-         automatically load these into the bootstrap classpath as needed.  Note that the way this works is that we
-         are actually working with ALL the dependencies  -->
-    <moduleSet>
-      <useAllReactorProjects>true</useAllReactorProjects>
-      <includes>
-        <include>org.onebusaway:onebusaway-quickstart-mains</include>
-      </includes>
-      <binaries>
-        <outputDirectory>/META-INF/bootstrap-lib</outputDirectory>
-        <unpack>false</unpack>
-        <includeDependencies>true</includeDependencies>
-        <dependencySets>
-          <dependencySet>
-            <includes>
-              <include>*:*</include>
-            </includes>
-            <excludes>
-              <exclude>org.onebusaway:onebusaway-transit-data-federation-builder</exclude>
-              <exclude>org.onebusaway:onebusaway-webapp:war</exclude>
-              <exclude>org.onebusaway:onebusaway-api-webapp:war</exclude>
-              <exclude>org.onebusaway:onebusaway-transit-data-federation-webapp:war</exclude>
-              <exclude>org.onebusaway:onebusaway-wiki-integration-api</exclude>
-              <exclude>org.onebusaway:onebusaway-wiki-integration-file</exclude>
-            </excludes>
-          </dependencySet>
-        </dependencySets>
-      </binaries>
-    </moduleSet>
-    <moduleSet>
-      <useAllReactorProjects>true</useAllReactorProjects>
-      <includes>
-        <include>org.onebusaway:onebusaway-quickstart-webapp</include>
-      </includes>
-      <binaries>
-        <outputDirectory>/WEB-INF/lib</outputDirectory>
-        <unpack>false</unpack>
-      </binaries>
-    </moduleSet>
-  </moduleSets>
   <dependencySets>
     <dependencySet>
       <includes>
-        <include>org.onebusaway:onebusaway-quickstart-assembly</include>
-        <include>org.onebusaway:onebusaway-quickstart-common</include>
+        <include>org.onebusaway:onebusaway-quickstart-bootstrap</include>
       </includes>
       <outputDirectory>/</outputDirectory>
-      <binaries>
-        <outputDirectory>/</outputDirectory>
-        <unpack>true</unpack>
-        <includeDependencies>false</includeDependencies>
-      </binaries>
+      <unpack>true</unpack>
+      <useTransitiveFiltering>true</useTransitiveFiltering>
     </dependencySet>
     <dependencySet>
       <includes>
+        <include>org.onebusaway:onebusaway-quickstart-mains</include>
+      </includes>
+      <outputDirectory>/META-INF/bootstrap-lib</outputDirectory>
+      <unpack>false</unpack>
+      <useTransitiveFiltering>true</useTransitiveFiltering>
+    </dependencySet>
+    <dependencySet>
+      <includes>
+<!--         <include>org.onebusaway:onebusaway-transit-data-federation-builder</include> -->
+        <include>org.onebusaway:onebusaway-quickstart-webapp</include>
         <include>org.onebusaway:onebusaway-wiki-integration-file</include>
       </includes>
       <outputDirectory>/WEB-INF/lib</outputDirectory>
       <unpack>false</unpack>
+      <useTransitiveFiltering>true</useTransitiveFiltering>
     </dependencySet>
     <dependencySet>
       <includes>

@@ -29,6 +29,6 @@ public class BuildBootstrapMain {
 
     Class<?> mainClass = Class.forName("org.onebusaway.transit_data_federation.bundle.FederatedTransitDataBundleCreatorMain");
     Method method = mainClass.getMethod("main", String[].class);
-    method.invoke(null, args);
+    method.invoke(null, (Object) args);
   }
 }

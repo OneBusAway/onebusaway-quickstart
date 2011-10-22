@@ -14,8 +14,13 @@
     Create an executable war that can be used to both build a transit data bundle and run an embedded OneBusAway webapp
     instance.
   </description>
-  
+
   <dependencies>
+    <dependency>
+      <groupId>org.onebusaway</groupId>
+      <artifactId>onebusaway-quickstart-bootstrap</artifactId>
+      <version>${project.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.onebusaway</groupId>
       <artifactId>onebusaway-quickstart-mains</artifactId>

@@ -1,60 +1,37 @@
 <assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
-  <id>api-webapp</id>
+  <id>test-webapp</id>
   <formats>
     <format>war</format>
   </formats>
   <includeBaseDirectory>false</includeBaseDirectory>
-  <moduleSets>
-    <moduleSet>
-      <useAllReactorProjects>true</useAllReactorProjects>
+  <dependencySets>
+    <dependencySet>
       <includes>
-        <include>org.onebusaway:onebusaway-quickstart-assembly</include>
-        <include>org.onebusaway:onebusaway-quickstart-common</include>
+        <include>org.onebusaway:onebusaway-quickstart-bootstrap</include>
       </includes>
-      <binaries>
-        <outputDirectory>/</outputDirectory>
-        <unpack>true</unpack>
-        <includeDependencies>false</includeDependencies>
-      </binaries>
-    </moduleSet>
-    <moduleSet>
-      <useAllReactorProjects>true</useAllReactorProjects>
+      <outputDirectory>/</outputDirectory>
+      <unpack>true</unpack>
+      <useTransitiveFiltering>true</useTransitiveFiltering>
+    </dependencySet>
+    <dependencySet>
       <includes>
         <include>org.onebusaway:onebusaway-quickstart-mains</include>
       </includes>
-      <binaries>
-        <outputDirectory>/META-INF/bootstrap-lib</outputDirectory>
-        <unpack>false</unpack>
-        <includeDependencies>true</includeDependencies>
-        <dependencySets>
-          <dependencySet>
-            <includes>
-              <include>*:*</include>
-            </includes>
-            <excludes>
-              <exclude>org.onebusaway:onebusaway-api-webapp:war</exclude>
-              <exclude>org.onebusaway:onebusaway-webapp:war</exclude>
-              <exclude>org.onebusaway:onebusaway-transit-data-federation-webapp:war</exclude>
-              <exclude>org.onebusaway:onebusaway-wiki-integration-api</exclude>
-              <exclude>org.onebusaway:onebusaway-wiki-integration-file</exclude>
-            </excludes>
-          </dependencySet>
-        </dependencySets>
-      </binaries>
-    </moduleSet>
-    <moduleSet>
-      <useAllReactorProjects>true</useAllReactorProjects>
+      <outputDirectory>/META-INF/bootstrap-lib</outputDirectory>
+      <unpack>false</unpack>
+      <useTransitiveFiltering>true</useTransitiveFiltering>
+    </dependencySet>
+    <dependencySet>
       <includes>
+<!--         <include>org.onebusaway:onebusaway-transit-data-federation-builder</include> -->
         <include>org.onebusaway:onebusaway-quickstart-webapp</include>
+        <include>org.onebusaway:onebusaway-wiki-integration-file</include>
       </includes>
-      <binaries>
-        <outputDirectory>/WEB-INF/lib</outputDirectory>
-        <unpack>false</unpack>
-      </binaries>
-    </moduleSet>
-  </moduleSets>
-  <dependencySets>
+      <outputDirectory>/WEB-INF/lib</outputDirectory>
+      <unpack>false</unpack>
+      <useTransitiveFiltering>true</useTransitiveFiltering>
+    </dependencySet>
     <dependencySet>
       <includes>
         <include>org.onebusaway:onebusaway-api-webapp:war</include>
@@ -66,17 +43,15 @@
         <excludes>
           <exclude>WEB-INF/web.xml</exclude>
           <exclude>WEB-INF/classes/data-sources*.xml</exclude>
-          <!-- Let's get rid of some unnecessary dependencies -->
-          <exclude>WEB-INF/lib/ehcache-terracotta-*.jar</exclude>
-          <exclude>WEB-INF/lib/gwt-servlet-*.jar</exclude>
-          <exclude>WEB-INF/lib/sqlite-jdbc-*.jar</exclude>
+          <exclude>WEB-INF/classes/struts.xml</exclude>
+          <exclude>WEB-INF/lib/commons-cli*.jar</exclude>
         </excludes>
       </unpackOptions>
     </dependencySet>
   </dependencySets>
   <fileSets>
     <fileSet>
-      <directory>src/main/assembly/onebusaway-quickstart-api-webapp</directory>
+      <directory>src/main/assembly/onebusaway-quickstart-webapp</directory>
       <outputDirectory>/</outputDirectory>
     </fileSet>
   </fileSets>
