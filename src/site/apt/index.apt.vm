@@ -8,7 +8,7 @@ onebusaway-quickstart
   
 Quick-Start
 
-#set( $webapp_url = 'http://nexus.onebusaway.org/service/local/artifact/maven/content?r=snapshots&g=org.onebusaway&a=onebusaway-quickstart-assembly&c=webappl&e=war&v=' + ${currentVersion} )
+#set( $webapp_url = 'http://nexus.onebusaway.org/service/local/artifact/maven/content?r=snapshots&g=org.onebusaway&a=onebusaway-quickstart-assembly&c=webapp&e=war&v=' + ${currentVersion} )
 #set( $api_webapp_url = 'http://nexus.onebusaway.org/service/local/artifact/maven/content?r=snapshots&g=org.onebusaway&a=onebusaway-quickstart-assembly&c=api-webapp&e=war&v=' + ${currentVersion} )
 
   These instructions assume some comfort with the command-line in a Unix-like environment.  At a bare minimum, you'll need the {{{http://www.java.com/en/}Java}} installed on your system along with the OneBusAway quick-start distribution.
