@@ -21,7 +21,7 @@
     <moduleSet>
       <useAllReactorProjects>true</useAllReactorProjects>
       <includes>
-        <include>org.onebusaway:onebusaway-quickstart-bootstrap</include>
+        <include>org.onebusaway:onebusaway-quickstart-mains</include>
       </includes>
       <binaries>
         <outputDirectory>/META-INF/bootstrap-lib</outputDirectory>

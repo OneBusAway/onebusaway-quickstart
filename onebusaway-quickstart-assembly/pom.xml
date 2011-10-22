@@ -10,11 +10,20 @@
   <artifactId>onebusaway-quickstart-assembly</artifactId>
 
   <name>onebusaway-quickstart-assembly</name>
-
+  <description>
+    Create an executable war that can be used to both build a transit data bundle and run an embedded OneBusAway webapp
+    instance.
+  </description>
+  
   <dependencies>
     <dependency>
       <groupId>org.onebusaway</groupId>
-      <artifactId>onebusaway-quickstart-bootstrap</artifactId>
+      <artifactId>onebusaway-quickstart-mains</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.onebusaway</groupId>
+      <artifactId>onebusaway-quickstart-webapp</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
@@ -34,6 +43,11 @@
       <artifactId>onebusaway-transit-data-federation-webapp</artifactId>
       <version>${onebusaway_version}</version>
       <type>war</type>
+    </dependency>
+    <dependency>
+      <groupId>org.onebusaway</groupId>
+      <artifactId>onebusaway-transit-data-federation-builder</artifactId>
+      <version>${onebusaway_version}</version>
     </dependency>
     <!-- We use this for onebusaway-webapp -->
     <dependency>
@@ -62,8 +76,9 @@
             </goals>
             <configuration>
               <descriptors>
-                <descriptor>assembly-api-webapp.xml</descriptor>
-                <descriptor>assembly-webapp.xml</descriptor>
+<!--                 <descriptor>assembly-api-webapp.xml</descriptor> -->
+                <descriptor>assembly-test-webapp.xml</descriptor>
+<!--                 <descriptor>assembly-webapp.xml</descriptor> -->
               </descriptors>
               <archive>
                 <manifest>

@@ -28,6 +28,12 @@ import org.eclipse.jetty.webapp.WebAppContext;
 import org.onebusaway.quickstart.BootstrapCommon;
 import org.onebusaway.quickstart.WebappCommon;
 
+/**
+ * Boostrap a Jetty webapp container for running an instance of OneBusAway.
+ * 
+ * @author bdferris
+ * 
+ */
 public class WebappBootstrapMain {
 
   private static final String ARG_PORT = "port";

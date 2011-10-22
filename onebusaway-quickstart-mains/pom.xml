@@ -7,9 +7,13 @@
     <version>0.2.0-SNAPSHOT</version>
   </parent>
   <groupId>org.onebusaway</groupId>
-  <artifactId>onebusaway-quickstart-bootstrap</artifactId>
-  <name>onebusaway-quickstart-bootstrap</name>
-
+  <artifactId>onebusaway-quickstart-mains</artifactId>
+  <name>onebusaway-quickstart-mains</name>
+  <description>
+    Actual entry points for transit data bundle building and running an embedded instance of Jetty for hosting a
+    OneBusAway webapp instance
+  </description>
+  
   <properties>
     <jetty.version>7.4.1.v20110513</jetty.version>
   </properties>
@@ -20,13 +24,6 @@
       <groupId>org.onebusaway</groupId>
       <artifactId>onebusaway-quickstart-common</artifactId>
       <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.onebusaway</groupId>
-      <artifactId>onebusaway-transit-data-federation</artifactId>
-      <version>${onebusaway_version}</version>
-      <scope>provided</scope>
     </dependency>
 
     <dependency>

@@ -20,14 +20,14 @@
         <includeDependencies>false</includeDependencies>
       </binaries>
     </moduleSet>
-    <!-- Copy the onebusaway-quickstart-bootstrap.jar and all it's dependencies into the /META-INF/bootstrap-lib
+    <!-- Copy the onebusaway-quickstart-mains.jar and all it's dependencies into the /META-INF/bootstrap-lib
          directory.  The dependencies primarily include all the Jetty dependencies.  The BootstrapMain will
          automatically load these into the bootstrap classpath as needed.  Note that the way this works is that we
          are actually working with ALL the dependencies  -->
     <moduleSet>
       <useAllReactorProjects>true</useAllReactorProjects>
       <includes>
-        <include>org.onebusaway:onebusaway-quickstart-bootstrap</include>
+        <include>org.onebusaway:onebusaway-quickstart-mains</include>
       </includes>
       <binaries>
         <outputDirectory>/META-INF/bootstrap-lib</outputDirectory>
@@ -39,6 +39,7 @@
               <include>*:*</include>
             </includes>
             <excludes>
+              <exclude>org.onebusaway:onebusaway-transit-data-federation-builder</exclude>
               <exclude>org.onebusaway:onebusaway-webapp:war</exclude>
               <exclude>org.onebusaway:onebusaway-api-webapp:war</exclude>
               <exclude>org.onebusaway:onebusaway-transit-data-federation-webapp:war</exclude>
@@ -61,6 +62,18 @@
     </moduleSet>
   </moduleSets>
   <dependencySets>
+    <dependencySet>
+      <includes>
+        <include>org.onebusaway:onebusaway-quickstart-assembly</include>
+        <include>org.onebusaway:onebusaway-quickstart-common</include>
+      </includes>
+      <outputDirectory>/</outputDirectory>
+      <binaries>
+        <outputDirectory>/</outputDirectory>
+        <unpack>true</unpack>
+        <includeDependencies>false</includeDependencies>
+      </binaries>
+    </dependencySet>
     <dependencySet>
       <includes>
         <include>org.onebusaway:onebusaway-wiki-integration-file</include>

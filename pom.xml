@@ -42,10 +42,10 @@
   </distributionManagement>
 
   <modules>
-    <module>onebusaway-quickstart-bootstrap</module>
+    <module>onebusaway-quickstart-common</module>
+    <module>onebusaway-quickstart-mains</module>
     <module>onebusaway-quickstart-webapp</module>
     <module>onebusaway-quickstart-assembly</module>
-    <module>onebusaway-quickstart-common</module>
   </modules>
 
   <dependencyManagement>

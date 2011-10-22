@@ -16,12 +16,19 @@
 package org.onebusaway.quickstart.bootstrap;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 
-import org.onebusaway.transit_data_federation.bundle.FederatedTransitDataBundleCreatorMain;
-
+/**
+ * Run FederatedTransitDataBundleCreatorMain as part of the transit-data-bundle
+ * build process.
+ * 
+ * @author bdferris
+ */
 public class BuildBootstrapMain {
-  public static void main(String[] args) throws IOException,
-      ClassNotFoundException {
-    FederatedTransitDataBundleCreatorMain.main(args);
+  public static void main(String[] args) throws IOException, Exception {
+
+    Class<?> mainClass = Class.forName("org.onebusaway.transit_data_federation.bundle.FederatedTransitDataBundleCreatorMain");
+    Method method = mainClass.getMethod("main", String[].class);
+    method.invoke(null, args);
   }
 }

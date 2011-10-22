@@ -1,0 +1,25 @@
+Developer Notes
+
+  The <<<onebusaway-quickstart>>> module constructs an executable war that can be used to both build a transit data
+bundle and then host an embedded Jetty webapp instance for that transit data bundle.  The Maven modules used to
+construct the quickstart executable war are a bit complicated, so we document them here.
+
+  The <<<onebusaway-quickstart>>> module itself is just a parent module for the sub-modules that do the actual work:
+  
+    * <<<onebusaway-quickstart-common>>>
+    
+    * <<<onebusaway-quickstart-mains>>>
+    
+    * <<<onebusaway-quickstart-webapp>>>
+    
+    * <<<onebusaway-quickstart-assembly>>>
+    
+    []
+    
+  The <<<onebusaway-quickstart-common>>> module contains a number of classes that are shared between all the quickstart
+modules.  It doesn't have dependencies on any other modules.
+
+  The <<<onebusaway-quickstart-mains>>> module contains the main entry points for building the transit data bundle and
+for running an embedded Jetty instance for hosting a OneBusAway webapp instance.  It has dependencies on
+<<<onebusaway-transit-data-federation-builder>>> for building the transit data bundle and Jetty for hosting the
+webapps.
