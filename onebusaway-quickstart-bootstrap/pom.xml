@@ -9,6 +9,10 @@
   <groupId>org.onebusaway</groupId>
   <artifactId>onebusaway-quickstart-bootstrap</artifactId>
   <name>onebusaway-quickstart-bootstrap</name>
+  <description>
+    Main entry point for the quickstart executable war.  Includes code for bootstrapping the classpath from the
+    contents of both the META-INF/bootstrap-lib directory and the WEB-INF/lib directory as needed.
+  </description>
 
   <dependencies>
     <dependency>

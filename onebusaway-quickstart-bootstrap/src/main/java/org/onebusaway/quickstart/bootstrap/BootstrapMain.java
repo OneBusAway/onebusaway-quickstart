@@ -33,7 +33,6 @@ import java.util.jar.JarInputStream;
 
 import org.onebusaway.quickstart.BootstrapCommon;
 
-
 /**
  * This is the bootstrap entry point for the onebusaway-quickstart WAR that
  * provides an executable war that can be used to quickly build a transit data
@@ -79,7 +78,8 @@ public class BootstrapMain {
        * Bootstrap the classpath by extracting the JARs in our WAR into the
        * temporary directory and then creating a special classloader on top of
        * those JARs. Note that we include the WEB-INF/lib JARs since they have
-       * the onebusaway-transit-data-federation.jar that we care about.
+       * the onebusaway-transit-data-federation-builder.jar and dependency JARS
+       * that we care about.
        */
       URLClassLoader classloader = bootstrapClasspath(warUrl, tmpDir, true);
 

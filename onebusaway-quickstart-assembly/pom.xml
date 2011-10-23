@@ -8,6 +8,7 @@
   </parent>
   <groupId>org.onebusaway</groupId>
   <artifactId>onebusaway-quickstart-assembly</artifactId>
+  <packaging>pom</packaging>
 
   <name>onebusaway-quickstart-assembly</name>
   <description>
@@ -54,6 +55,13 @@
       <artifactId>onebusaway-transit-data-federation-builder</artifactId>
       <version>${onebusaway_version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.onebusaway</groupId>
+      <artifactId>onebusaway-transit-data-federation-builder</artifactId>
+      <version>${onebusaway_version}</version>
+      <classifier>dependencies</classifier>
+      <type>zip</type>      
+    </dependency>
     <!-- We use this for onebusaway-webapp -->
     <dependency>
       <groupId>org.onebusaway</groupId>
@@ -73,6 +81,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.2.1</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -81,8 +90,8 @@
             </goals>
             <configuration>
               <descriptors>
-                <descriptor>assembly-api-webapp.xml</descriptor>
-                <descriptor>assembly-webapp.xml</descriptor>
+                <descriptor>src/main/assembly/assembly-api-webapp.xml</descriptor>
+                <descriptor>src/main/assembly/assembly-webapp.xml</descriptor>
               </descriptors>
               <archive>
                 <manifest>
