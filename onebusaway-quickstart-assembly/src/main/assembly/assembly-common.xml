@@ -79,13 +79,11 @@
     </dependencySet>
     <!--
       We copy in a few extra dependencies into the /WEB-INF/lib directory, to be used by the webapp.  Specifically, we
-      include our custom extensions in onebusaway-quickstart-webappp AND the onebusaway-wiki-integration-file module
-      for hosting a simple file-based wiki to power the quickstart webapp's content.
+      include our custom extensions in onebusaway-quickstart-webappp.
     -->
     <dependencySet>
       <includes>
         <include>org.onebusaway:onebusaway-quickstart-webapp</include>
-        <include>org.onebusaway:onebusaway-wiki-integration-file</include>
       </includes>
       <outputDirectory>/WEB-INF/lib</outputDirectory>
       <unpack>false</unpack>

@@ -8,15 +8,14 @@
   </parent>
   <groupId>org.onebusaway</groupId>
   <artifactId>onebusaway-quickstart</artifactId>
-  <version>0.2.0-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>onebusaway-quickstart</name>
   <description>Quickly build and deploy a basic OneBusAway instance</description>
 
   <properties>
-    <onebusaway_version>0.2.0-SNAPSHOT</onebusaway_version>
-    <wiki.integration.version>0.1.0-SNAPSHOT</wiki.integration.version>
+    <onebusaway_version>1.0.0</onebusaway_version>
     <hsqldb.port>9930</hsqldb.port>
   </properties>
 

@@ -4,7 +4,7 @@
   <parent>
     <artifactId>onebusaway-quickstart</artifactId>
     <groupId>org.onebusaway</groupId>
-    <version>0.2.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
   </parent>
   <groupId>org.onebusaway</groupId>
   <artifactId>onebusaway-quickstart-assembly</artifactId>
@@ -61,12 +61,6 @@
       <version>${onebusaway_version}</version>
       <classifier>dependencies</classifier>
       <type>zip</type>      
-    </dependency>
-    <!-- We use this for onebusaway-webapp -->
-    <dependency>
-      <groupId>org.onebusaway</groupId>
-      <artifactId>onebusaway-wiki-integration-file</artifactId>
-      <version>${wiki.integration.version}</version>
     </dependency>
   </dependencies>
 
