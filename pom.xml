@@ -16,7 +16,10 @@
 
   <properties>
     <onebusaway_version>1.0.0</onebusaway_version>
-    <hsqldb.port>9930</hsqldb.port>
+    <distribution_id>nexus.onebusaway.org-releases</distribution_id>
+    <distribution_url>http://nexus.onebusaway.org/content/repositories/releases/</distribution_url>
+    <snapshot_distribution_id>nexus.onebusaway.org-snapshots</snapshot_distribution_id>
+    <snapshot_distribution_url>http://nexus.onebusaway.org/content/repositories/snapshots/</snapshot_distribution_url>
   </properties>
 
   <repositories>
