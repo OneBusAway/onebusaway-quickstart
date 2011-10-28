@@ -8,7 +8,7 @@
     <publishDate position="right"/>
     <version position="right"/>
     <body>
-        <menu name="onebusaway-gtfs-modules">
+        <menu name="Home">
             <item name="About" href="/index.html" />
             <item name="Release Notes" href="/release-notes.html"/>
             <item name="DeveloperNotes" href="/developer-notes.html"/>
