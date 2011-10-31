@@ -60,7 +60,7 @@
       <artifactId>onebusaway-transit-data-federation-builder</artifactId>
       <version>${onebusaway_version}</version>
       <classifier>dependencies</classifier>
-      <type>zip</type>      
+      <type>zip</type>
     </dependency>
   </dependencies>
 

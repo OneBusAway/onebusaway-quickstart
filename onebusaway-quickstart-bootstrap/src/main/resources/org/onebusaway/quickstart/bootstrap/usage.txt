@@ -1,6 +1,8 @@
 Usage:
   -build [opts] gtfs.zip bundle        Build a transit data bundle, necessary to power the webapp      
   -webapp [opts] bundle                Start the webapp, powered by the transit data bundle
+Or:  
+  -gui                                 Run a GUI-based wizard to configure transit data bundle and run your webapp  
   
 Running OneBusAway consists of two steps:
 
@@ -16,7 +18,12 @@ Each phase (-build, -webappp) has specific options as well.  You can see all the
 
  % java -jar onebusaway-quickstart.war -build -help
  % java -jar onebusaway-quickstart.war -webapp -help
+
+If you aren't comfortable with the command-line, you can also run a GUI-based wizard to walk you through the various
+configuration steps and get you up and running.
+
+ % java -jar onebusaway-quickstart.war -gui
  
-Or you can check out the full documentation on-line at:
+For more details, check out the full documentation on-line at:
 
   http://developer.onebusaway.org/modules/onebusaway-quickstart/${project.version}/index.html
