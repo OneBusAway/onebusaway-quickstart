@@ -47,6 +47,7 @@ public class QuickStartTypePanel extends JPanel {
         "[][][][]"));
 
     JTextPane txtpnYouNeedTo = new JTextPane();
+    txtpnYouNeedTo.setEditable(false);
     txtpnYouNeedTo.setBackground(UIManager.getColor("control"));
     txtpnYouNeedTo.setText("You need to build a transit data bundle from raw input data (GTFS, etc) at least once before you run the webapp, or any time your raw input data changes. ");
     add(txtpnYouNeedTo, "cell 0 0");

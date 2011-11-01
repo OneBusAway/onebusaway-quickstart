@@ -49,6 +49,7 @@ public class WizardDialog extends JDialog {
   public WizardDialog(WizardController controller) {
     this.wizardController = controller;
     controller.addPropertyChangeListener(new WizardControllerPropertyChangeHandler());
+    controller.addCompletionListener(new WizardCompletionHandler());
 
     setBounds(100, 100, 450, 300);
     getContentPane().setLayout(new BorderLayout());
@@ -63,8 +64,7 @@ public class WizardDialog extends JDialog {
         JButton cancelButton = new JButton("Cancel");
         cancelButton.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent e) {
-            WizardDialog.this.setVisible(false);
-            wizardController.handleCancelButton();            
+            wizardController.handleCancelButton();
           }
         });
         cancelButton.setActionCommand("Cancel");
@@ -92,26 +92,7 @@ public class WizardDialog extends JDialog {
       }
     }
     initDataBindings();
-  }
-
-  private class WizardControllerPropertyChangeHandler implements
-      PropertyChangeListener {
-
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-      String name = evt.getPropertyName();
-      if (name.equals(WizardController.PROPERTY_CURRENT_PANEL)) {
-        contentPanel.removeAll();
-        WizardPanelController controller = (WizardPanelController) evt.getNewValue();
-        if (controller != null) {
-          JPanel panel = controller.getPanel();
-          if (panel != null) {
-            contentPanel.add(panel, BorderLayout.CENTER);
-            contentPanel.revalidate();
-          }
-        }
-      }
-    }
+    updateControlPanel();
   }
 
   protected void initDataBindings() {
@@ -127,5 +108,42 @@ public class WizardDialog extends JDialog {
         UpdateStrategy.READ, wizardController, wizardControllerBeanProperty_1,
         backButton, jButtonBeanProperty);
     autoBinding_1.bind();
+  }
+
+  private void updateControlPanel() {
+    contentPanel.removeAll();
+    WizardPanelController controller = wizardController.getCurrentController();
+    if (controller != null) {
+      JPanel panel = controller.getPanel();
+      if (panel != null) {
+        contentPanel.add(panel, BorderLayout.CENTER);
+        contentPanel.revalidate();
+      }
+    }
+  }
+
+  private class WizardControllerPropertyChangeHandler implements
+      PropertyChangeListener {
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+      String name = evt.getPropertyName();
+      if (name.equals(WizardController.PROPERTY_CURRENT_PANEL)) {
+        updateControlPanel();
+      }
+    }
+  }
+
+  private class WizardCompletionHandler implements WizardCompletionListener {
+
+    @Override
+    public void handleCanceled() {
+      handleFinished();
+    }
+
+    @Override
+    public void handleFinished() {
+      WizardDialog.this.setVisible(false);
+    }
   }
 }

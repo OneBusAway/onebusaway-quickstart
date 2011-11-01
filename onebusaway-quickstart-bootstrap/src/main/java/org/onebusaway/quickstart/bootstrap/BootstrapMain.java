@@ -48,7 +48,7 @@ public class BootstrapMain {
 
   public static void main(String[] args) throws Exception {
 
-    if (args.length == 0 || isHelp(args[0])) {
+    if (args.length > 0 && isHelp(args[0])) {
       usage();
       System.exit(-1);
     }
@@ -67,8 +67,22 @@ public class BootstrapMain {
      */
     File tmpDir = getTempDirectory();
 
-    String firstArg = args[0];
+    if (args.length == 0) {
+      /**
+       * Bootstrap the classpath by extracting the JARs in our WAR into the
+       * temporary directory and then creating a special classloader on top of
+       * those JARs. Note that we include the WEB-INF/lib JARs since they have
+       * the onebusaway-transit-data-federation-builder.jar and dependency JARS
+       * that we care about.
+       */
+      URLClassLoader classloader = bootstrapClasspath(warUrl, tmpDir, true);
 
+      Class<?> c = classloader.loadClass("org.onebusaway.quickstart.bootstrap.GuiBootstrapMain");
+      Method method = c.getMethod("main", String[].class);
+      invokeWithProperClassloader(classloader, method, (Object) args);
+    }
+
+    String firstArg = args[0];
     String[] subArgs = new String[args.length - 1];
     System.arraycopy(args, 1, subArgs, 0, subArgs.length);
 
@@ -110,20 +124,6 @@ public class BootstrapMain {
       Method method = c.getMethod("run", URL.class, String[].class);
       invokeWithProperClassloader(classloader, method, warUrl, subArgs);
 
-    } else if ("-gui".equals(firstArg) ) {
-      
-      /**
-       * Bootstrap the classpath by extracting the JARs in our WAR into the
-       * temporary directory and then creating a special classloader on top of
-       * those JARs. Note that we include the WEB-INF/lib JARs since they have
-       * the onebusaway-transit-data-federation-builder.jar and dependency JARS
-       * that we care about.
-       */
-      URLClassLoader classloader = bootstrapClasspath(warUrl, tmpDir, true);
-
-      Class<?> c = classloader.loadClass("org.onebusaway.quickstart.bootstrap.GuiBootstrapMain");
-      Method method = c.getMethod("main", String[].class);
-      invokeWithProperClassloader(classloader, method, (Object) subArgs);
     } else {
       System.err.println("unexpected first arg: " + firstArg);
       usage();

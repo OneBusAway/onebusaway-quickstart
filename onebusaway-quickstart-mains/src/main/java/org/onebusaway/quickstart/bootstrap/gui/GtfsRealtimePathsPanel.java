@@ -46,6 +46,7 @@ public class GtfsRealtimePathsPanel extends JPanel {
     setLayout(new MigLayout("", "[450px,grow]", "[][][][][][][]"));
 
     JTextPane txtpnIfYouHave = new JTextPane();
+    txtpnIfYouHave.setEditable(false);
     txtpnIfYouHave.setBackground(UIManager.getColor("control"));
     txtpnIfYouHave.setText("If you have access to real-time transit information in the GTFS-realtime format for your agency, specify the source URLs here.");
     txtpnIfYouHave.setToolTipText("");

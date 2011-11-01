@@ -24,6 +24,10 @@ import java.util.Set;
 
 public class WizardController {
 
+  public enum ECompletionState {
+    NOT_COMPLETED, FINISHED, CANCELLED
+  }
+
   public static final String PROPERTY_CURRENT_PANEL = "currentPanel";
 
   public static final String PROPERTY_BACK_BUTTON_ENABLED = "backButtonEnabled";
@@ -43,6 +47,8 @@ public class WizardController {
   private boolean _backButtonEnabled = false;
 
   private boolean _nextButtonEnabled = false;
+
+  private ECompletionState _completionState = ECompletionState.NOT_COMPLETED;
 
   public void addPropertyChangeListener(PropertyChangeListener listener) {
     _changes.addPropertyChangeListener(listener);
@@ -101,6 +107,10 @@ public class WizardController {
     }
   }
 
+  public WizardPanelController getCurrentController() {
+    return _currentController;
+  }
+
   public boolean isBackButtonEnabled() {
     return _backButtonEnabled;
   }
@@ -125,6 +135,10 @@ public class WizardController {
         _nextButtonEnabled);
   }
 
+  public ECompletionState getCompletionState() {
+    return _completionState;
+  }
+
   public void handleBackButton() {
     if (_currentController == null)
       return;
@@ -140,12 +154,21 @@ public class WizardController {
     Object nextId = _currentController.getNextPanelId();
     if (nextId == null)
       return;
-    setCurrentPanel(nextId);
+    if (nextId == FINISH_PANEL_ID) {
+      _completionState = ECompletionState.FINISHED;
+      for (WizardCompletionListener listener : _completionListeners) {
+        listener.handleFinished();
+      }
+    } else {
+      setCurrentPanel(nextId);
+    }
   }
 
   public void handleCancelButton() {
+    _completionState = ECompletionState.CANCELLED;
     for (WizardCompletionListener listener : _completionListeners) {
       listener.handleCanceled();
     }
   }
+
 }

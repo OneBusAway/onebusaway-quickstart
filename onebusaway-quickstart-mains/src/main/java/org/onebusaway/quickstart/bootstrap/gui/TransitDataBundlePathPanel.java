@@ -53,6 +53,7 @@ public class TransitDataBundlePathPanel extends JPanel {
     setLayout(new MigLayout("", "[450px]", "[][][]"));
 
     JTextPane transitDataBundlePathDescription = new JTextPane();
+    transitDataBundlePathDescription.setEditable(false);
     transitDataBundlePathDescription.setBackground(UIManager.getColor("control"));
     transitDataBundlePathDescription.setText("The Transit Data Bundle directory determines where the optimized bundle of transit data, which powers the OneBusAway application suite, will be stored.");
     add(transitDataBundlePathDescription, "cell 0 0");

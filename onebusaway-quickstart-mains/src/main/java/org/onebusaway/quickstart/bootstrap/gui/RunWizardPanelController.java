@@ -30,7 +30,7 @@ public class RunWizardPanelController extends AbstractWizardPanelController {
 
   @Override
   public JPanel getPanel() {
-    return new RunPanel();
+    return new RunPanel(model);
   }
 
   @Override

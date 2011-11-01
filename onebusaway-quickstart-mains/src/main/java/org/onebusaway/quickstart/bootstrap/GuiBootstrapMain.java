@@ -16,6 +16,10 @@
 package org.onebusaway.quickstart.bootstrap;
 
 import java.io.IOException;
+import java.net.URL;
+import java.security.ProtectionDomain;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
@@ -28,8 +32,8 @@ import org.onebusaway.quickstart.bootstrap.gui.QuickStartTypeWizardPanelControll
 import org.onebusaway.quickstart.bootstrap.gui.RunWizardPanelController;
 import org.onebusaway.quickstart.bootstrap.gui.TransitDataBundlePathWizardPanelController;
 import org.onebusaway.quickstart.bootstrap.gui.WelcomeWizardPanelController;
-import org.onebusaway.quickstart.bootstrap.gui.wizard.WizardCompletionListener;
 import org.onebusaway.quickstart.bootstrap.gui.wizard.WizardController;
+import org.onebusaway.quickstart.bootstrap.gui.wizard.WizardController.ECompletionState;
 import org.onebusaway.quickstart.bootstrap.gui.wizard.WizardDialog;
 
 /**
@@ -55,26 +59,44 @@ public class GuiBootstrapMain {
         new GtfsRealtimePathsWizardPanelController(model));
     controller.addPanel(RunWizardPanelController.class,
         new RunWizardPanelController(model));
+    controller.setCurrentPanel(WelcomeWizardPanelController.class);
 
     WizardDialog dialog = new WizardDialog(controller);
+    dialog.setModal(true);
     dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     dialog.setVisible(true);
 
-    controller.addCompletionListener(new WizardCompletionListener() {
+    saveModel(model);
 
-      @Override
-      public void handleFinished() {
-        saveModel(model);
+    if (controller.getCompletionState() == ECompletionState.CANCELLED)
+      System.exit(0);
+
+    if (model.isBuildEnabled()) {
+      System.out.println("=== BUILDING A TRANSIT DATA BUNDLE ===");
+      String gtfsPath = model.getGtfsPath();
+      String bundlePath = model.getTransitDataBundlePath();
+      BuildBootstrapMain.main(new String[] {gtfsPath, bundlePath});
+    }
+    
+    if (model.isRunEnabled()) {
+      System.out.println("=== RUNNING THE WEBAPP ===");
+      ProtectionDomain protectionDomain = GuiBootstrapMain.class.getProtectionDomain();
+      URL warUrl = protectionDomain.getCodeSource().getLocation();
+      List<String> runArgs = new ArrayList<String>();
+      if (model.getTripUpdatesUrl() != null) {
+        runArgs.add("-gtfsRealtimeTripUpdatesUrl=" + model.getTripUpdatesUrl());
       }
-
-      @Override
-      public void handleCanceled() {
-        saveModel(model);
-        System.exit(0);
+      if (model.getVehiclePositionsUrl() != null) {
+        runArgs.add("-gtfsRealtimeVehiclePositionsUrl="
+            + model.getVehiclePositionsUrl());
       }
-    });
-
-    controller.setCurrentPanel(WelcomeWizardPanelController.class);
+      if (model.getAlertsUrl() != null) {
+        runArgs.add("-gtfsRealtimeAlertsUrl=" + model.getAlertsUrl());
+      }
+      runArgs.add(model.getTransitDataBundlePath());
+      WebappBootstrapMain.run(warUrl,
+          runArgs.toArray(new String[runArgs.size()]));
+    }
   }
 
   private static void loadModel(BootstrapDataModel model) {

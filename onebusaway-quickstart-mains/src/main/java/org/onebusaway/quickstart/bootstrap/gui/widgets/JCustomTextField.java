@@ -67,7 +67,8 @@ public class JCustomTextField extends JTextField {
     private void firePropertyChange(Document document) {
       try {
         String text = document.getText(0, document.getLength());
-        JCustomTextField.this.firePropertyChange("text", "", text);
+        String prev = text.isEmpty() ? "x" : "";
+        JCustomTextField.this.firePropertyChange("text", prev, text);
       } catch (BadLocationException e) {
         throw new IllegalStateException(e);
       }

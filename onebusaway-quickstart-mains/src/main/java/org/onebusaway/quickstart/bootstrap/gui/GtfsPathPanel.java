@@ -32,6 +32,7 @@ import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.Bindings;
 import org.onebusaway.quickstart.bootstrap.gui.widgets.JCustomTextField;
+import javax.swing.UIManager;
 
 public class GtfsPathPanel extends JPanel {
 
@@ -52,6 +53,8 @@ public class GtfsPathPanel extends JPanel {
     setLayout(new MigLayout("", "[450px]", "[][][]"));
 
     JTextPane txtpnWhat = new JTextPane();
+    txtpnWhat.setEditable(false);
+    txtpnWhat.setBackground(UIManager.getColor("control"));
     txtpnWhat.setText("OneBusAway reads transit schedule data in the GTFS format.  Please specify the path to your GTFS feed so that we can use it to build the OneBusAway transit data bundle.");
     add(txtpnWhat, "cell 0 0");
 

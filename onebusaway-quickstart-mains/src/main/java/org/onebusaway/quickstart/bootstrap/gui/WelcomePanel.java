@@ -32,6 +32,7 @@ public class WelcomePanel extends JPanel {
     setLayout(new MigLayout("", "[450px]", "[grow]"));
     
     JTextPane welcomeText = new JTextPane();
+    welcomeText.setEditable(false);
     welcomeText.setBackground(UIManager.getColor("control"));
     welcomeText.setText("Welcome to the OneBusAway Quick-Start wizard.  This wizard will walk you through configuring the OneBusAway application with your transit data and starting the application.");
     add(welcomeText, "cell 0 0,grow");

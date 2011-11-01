@@ -27,13 +27,42 @@ public class RunPanel extends JPanel {
   /**
    * Create the panel.
    */
-  public RunPanel() {
-    setLayout(new MigLayout("", "[grow]", "[grow]"));
+  public RunPanel(BootstrapDataModel model) {
+    setLayout(new MigLayout("", "[grow]", "[][][]"));
 
-    JTextPane txtpnWereReadyTo = new JTextPane();
-    txtpnWereReadyTo.setBackground(UIManager.getColor("control"));
-    txtpnWereReadyTo.setText("We're ready to go!");
-    add(txtpnWereReadyTo, "cell 0 0,grow");
+    JTextPane txtReadyToGo = new JTextPane();
+    txtReadyToGo.setEditable(false);
+    txtReadyToGo.setBackground(UIManager.getColor("control"));
+    txtReadyToGo.setText("We're ready to go!  Here's what to expect:");
+    add(txtReadyToGo, "cell 0 0");
+
+    JTextPane txtOptions = new JTextPane();
+    txtOptions.setText("");
+    txtOptions.setBackground(UIManager.getColor("control"));
+    txtOptions.setEditable(false);
+    add(txtOptions, "cell 0 1");
+
+    StringBuilder text = new StringBuilder();
+    int index = 1;
+    if (model.isBuildEnabled()) {
+      text.append(index++);
+      text.append(") ");
+      text.append(Messages.getString("RunPanel.BuildMessage"));
+    }
+    if (model.isRunEnabled()) {
+      if (text.length() > 0)
+        text.append("\n\n");
+      text.append(index++);
+      text.append(") ");
+      text.append(Messages.getString("RunPanel.RunMessage"));
+    }
+    txtOptions.setText(text.toString());
+
+    JTextPane txtConsole = new JTextPane();
+    txtConsole.setEditable(false);
+    txtConsole.setBackground(UIManager.getColor("control"));
+    txtConsole.setText(Messages.getString("RunPanel.ConsoleMessage")); //$NON-NLS-1$
+    add(txtConsole, "cell 0 2");
 
   }
 
