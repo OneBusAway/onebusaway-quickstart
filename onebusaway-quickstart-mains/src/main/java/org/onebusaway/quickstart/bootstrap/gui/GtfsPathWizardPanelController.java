@@ -20,6 +20,7 @@ import java.beans.PropertyChangeListener;
 
 import javax.swing.JPanel;
 
+import org.onebusaway.quickstart.GuiQuickstartDataModel;
 import org.onebusaway.quickstart.bootstrap.gui.wizard.AbstractWizardPanelController;
 import org.onebusaway.quickstart.bootstrap.gui.wizard.WizardController;
 
@@ -28,11 +29,11 @@ public class GtfsPathWizardPanelController extends
 
   private PropertyChangeHandler handler = new PropertyChangeHandler();
 
-  private BootstrapDataModel model;
+  private GuiQuickstartDataModel model;
 
   private WizardController controller;
 
-  public GtfsPathWizardPanelController(BootstrapDataModel model,
+  public GtfsPathWizardPanelController(GuiQuickstartDataModel model,
       WizardController controller) {
     this.model = model;
     this.controller = controller;

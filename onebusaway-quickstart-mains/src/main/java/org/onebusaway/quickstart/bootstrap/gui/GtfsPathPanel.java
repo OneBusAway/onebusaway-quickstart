@@ -31,6 +31,7 @@ import org.jdesktop.beansbinding.AutoBinding;
 import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.Bindings;
+import org.onebusaway.quickstart.GuiQuickstartDataModel;
 import org.onebusaway.quickstart.bootstrap.gui.widgets.JCustomTextField;
 import javax.swing.UIManager;
 
@@ -38,7 +39,7 @@ public class GtfsPathPanel extends JPanel {
 
   private static final long serialVersionUID = 1L;
 
-  private BootstrapDataModel _model;
+  private GuiQuickstartDataModel _model;
 
   private JCustomTextField gtfsPathTextField;
 
@@ -47,7 +48,7 @@ public class GtfsPathPanel extends JPanel {
    * 
    * @param model
    */
-  public GtfsPathPanel(BootstrapDataModel model) {
+  public GtfsPathPanel(GuiQuickstartDataModel model) {
     _model = model;
 
     setLayout(new MigLayout("", "[450px]", "[][][]"));
@@ -86,9 +87,9 @@ public class GtfsPathPanel extends JPanel {
   }
 
   protected void initDataBindings() {
-    BeanProperty<BootstrapDataModel, String> bootstrapDataModelBeanProperty = BeanProperty.create("gtfsPath");
+    BeanProperty<GuiQuickstartDataModel, String> bootstrapDataModelBeanProperty = BeanProperty.create("gtfsPath");
     BeanProperty<JTextField, String> jTextFieldBeanProperty = BeanProperty.create("text");
-    AutoBinding<BootstrapDataModel, String, JTextField, String> autoBinding = Bindings.createAutoBinding(
+    AutoBinding<GuiQuickstartDataModel, String, JTextField, String> autoBinding = Bindings.createAutoBinding(
         UpdateStrategy.READ_WRITE, _model, bootstrapDataModelBeanProperty,
         gtfsPathTextField, jTextFieldBeanProperty);
     autoBinding.bind();

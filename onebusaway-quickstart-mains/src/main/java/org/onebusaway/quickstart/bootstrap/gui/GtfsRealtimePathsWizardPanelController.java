@@ -17,14 +17,15 @@ package org.onebusaway.quickstart.bootstrap.gui;
 
 import javax.swing.JPanel;
 
+import org.onebusaway.quickstart.GuiQuickstartDataModel;
 import org.onebusaway.quickstart.bootstrap.gui.wizard.AbstractWizardPanelController;
 
 public class GtfsRealtimePathsWizardPanelController extends
     AbstractWizardPanelController {
 
-  private BootstrapDataModel model;
+  private GuiQuickstartDataModel model;
 
-  public GtfsRealtimePathsWizardPanelController(BootstrapDataModel model) {
+  public GtfsRealtimePathsWizardPanelController(GuiQuickstartDataModel model) {
     this.model = model;
   }
 

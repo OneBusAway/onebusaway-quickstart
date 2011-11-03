@@ -28,10 +28,13 @@ import java.net.URLClassLoader;
 import java.security.ProtectionDomain;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
 
 import org.onebusaway.quickstart.BootstrapCommon;
+import org.onebusaway.quickstart.GuiQuickstartDataModel;
+import org.onebusaway.quickstart.WebappCommon;
 
 /**
  * This is the bootstrap entry point for the onebusaway-quickstart WAR that
@@ -68,18 +71,39 @@ public class BootstrapMain {
     File tmpDir = getTempDirectory();
 
     if (args.length == 0) {
-      /**
-       * Bootstrap the classpath by extracting the JARs in our WAR into the
-       * temporary directory and then creating a special classloader on top of
-       * those JARs. Note that we include the WEB-INF/lib JARs since they have
-       * the onebusaway-transit-data-federation-builder.jar and dependency JARS
-       * that we care about.
-       */
-      URLClassLoader classloader = bootstrapClasspath(warUrl, tmpDir, true);
+      GuiQuickstartDataModel model = performGuiConfiguration(warUrl, tmpDir);
 
-      Class<?> c = classloader.loadClass("org.onebusaway.quickstart.bootstrap.GuiBootstrapMain");
-      Method method = c.getMethod("main", String[].class);
-      invokeWithProperClassloader(classloader, method, (Object) args);
+      if (model.isBuildOnly()) {
+
+        String gtfsPath = model.getGtfsPath();
+        String bundlePath = model.getTransitDataBundlePath();
+        String[] subArgs = {gtfsPath, bundlePath};
+        performBuild(warUrl, tmpDir, subArgs);
+
+      } else {
+
+        List<String> runArgs = new ArrayList<String>();
+        if (model.isBuildEnabled()) {
+          runArgs.add("-" + WebappCommon.ARG_BUILD);
+          runArgs.add("-" + WebappCommon.ARG_GTFS_PATH + "="
+              + model.getGtfsPath());
+        }
+
+        if (model.getTripUpdatesUrl() != null) {
+          runArgs.add("-gtfsRealtimeTripUpdatesUrl="
+              + model.getTripUpdatesUrl());
+        }
+        if (model.getVehiclePositionsUrl() != null) {
+          runArgs.add("-gtfsRealtimeVehiclePositionsUrl="
+              + model.getVehiclePositionsUrl());
+        }
+        if (model.getAlertsUrl() != null) {
+          runArgs.add("-gtfsRealtimeAlertsUrl=" + model.getAlertsUrl());
+        }
+        runArgs.add(model.getTransitDataBundlePath());
+        performRun(warUrl, tmpDir, runArgs.toArray(new String[runArgs.size()]));
+      }
+      System.exit(0);
     }
 
     String firstArg = args[0];
@@ -88,41 +112,11 @@ public class BootstrapMain {
 
     if ("-build".equals(firstArg)) {
 
-      /**
-       * Bootstrap the classpath by extracting the JARs in our WAR into the
-       * temporary directory and then creating a special classloader on top of
-       * those JARs. Note that we include the WEB-INF/lib JARs since they have
-       * the onebusaway-transit-data-federation-builder.jar and dependency JARS
-       * that we care about.
-       */
-      URLClassLoader classloader = bootstrapClasspath(warUrl, tmpDir, true);
-
-      Class<?> c = classloader.loadClass("org.onebusaway.quickstart.bootstrap.BuildBootstrapMain");
-      Method method = c.getMethod("main", String[].class);
-      invokeWithProperClassloader(classloader, method, (Object) subArgs);
+      performBuild(warUrl, tmpDir, subArgs);
 
     } else if ("-webapp".equals(firstArg)) {
 
-      String tempPath = System.getProperty("java.io.tmpdir");
-
-      /**
-       * A fix to handle the crazy path the Mac JVM returns that cause problems
-       * for embedded Jetty
-       */
-      if (tempPath.startsWith("/var/folders/"))
-        System.setProperty("java.io.tmpdir", "/tmp");
-
-      /**
-       * Bootstrap the classpath by extracting the JARs in our WAR into the
-       * temporary directory and then creating a special classloader on top of
-       * those JARs. Note that we exclude the WEB-INF/lib JARs, since those will
-       * be loaded by the webapp container.
-       */
-      URLClassLoader classloader = bootstrapClasspath(warUrl, tmpDir, false);
-
-      Class<?> c = classloader.loadClass("org.onebusaway.quickstart.bootstrap.WebappBootstrapMain");
-      Method method = c.getMethod("run", URL.class, String[].class);
-      invokeWithProperClassloader(classloader, method, warUrl, subArgs);
+      performRun(warUrl, tmpDir, subArgs);
 
     } else {
       System.err.println("unexpected first arg: " + firstArg);
@@ -131,20 +125,80 @@ public class BootstrapMain {
     }
   }
 
+  private static GuiQuickstartDataModel performGuiConfiguration(URL warUrl,
+      File tmpDir) throws ClassNotFoundException, NoSuchMethodException,
+      InterruptedException {
+    /**
+     * Bootstrap the classpath by extracting the JARs in our WAR into the
+     * temporary directory and then creating a special classloader on top of
+     * those JARs.
+     */
+    URLClassLoader classloader = bootstrapClasspath(warUrl, tmpDir, false);
+    Class<?> c = classloader.loadClass("org.onebusaway.quickstart.bootstrap.GuiBootstrapMain");
+    Method method = c.getMethod("configureBootstrapArgs");
+    GuiQuickstartDataModel bootstrapArgs = (GuiQuickstartDataModel) invokeWithProperClassloader(
+        classloader, method);
+    return bootstrapArgs;
+  }
+
+  private static void performBuild(URL warUrl, File tmpDir, String[] subArgs)
+      throws ClassNotFoundException, NoSuchMethodException,
+      InterruptedException {
+    /**
+     * Bootstrap the classpath by extracting the JARs in our WAR into the
+     * temporary directory and then creating a special classloader on top of
+     * those JARs. Note that we include the WEB-INF/lib JARs since they have the
+     * onebusaway-transit-data-federation-builder.jar and dependency JARS that
+     * we care about.
+     */
+    URLClassLoader classloader = bootstrapClasspath(warUrl, tmpDir, true);
+
+    Class<?> c = classloader.loadClass("org.onebusaway.quickstart.bootstrap.BuildBootstrapMain");
+    Method method = c.getMethod("main", String[].class);
+    invokeWithProperClassloader(classloader, method, (Object) subArgs);
+  }
+
+  private static void performRun(URL warUrl, File tmpDir, String[] subArgs)
+      throws ClassNotFoundException, NoSuchMethodException,
+      InterruptedException {
+
+    String tempPath = System.getProperty("java.io.tmpdir");
+
+    /**
+     * A fix to handle the crazy path the Mac JVM returns that cause problems
+     * for embedded Jetty
+     */
+    if (tempPath.startsWith("/var/folders/"))
+      System.setProperty("java.io.tmpdir", "/tmp");
+
+    /**
+     * Bootstrap the classpath by extracting the JARs in our WAR into the
+     * temporary directory and then creating a special classloader on top of
+     * those JARs. Note that we exclude the WEB-INF/lib JARs, since those will
+     * be loaded by the webapp container.
+     */
+    URLClassLoader classloader = bootstrapClasspath(warUrl, tmpDir, false);
+
+    Class<?> c = classloader.loadClass("org.onebusaway.quickstart.bootstrap.WebappBootstrapMain");
+    Method method = c.getMethod("run", URL.class, String[].class);
+    invokeWithProperClassloader(classloader, method, warUrl, subArgs);
+  }
+
   private static boolean isHelp(String option) {
     option = option.replaceAll("-", "");
     option = option.toLowerCase();
     return option.equals("help") || option.equals("h") || option.equals("?");
   }
 
-  private static void invokeWithProperClassloader(URLClassLoader classloader,
+  private static Object invokeWithProperClassloader(URLClassLoader classloader,
       final Method method, final Object... args) throws InterruptedException {
-
+    final AtomicReference<Object> reference = new AtomicReference<Object>();
     Runnable r = new Runnable() {
       @Override
       public void run() {
         try {
-          method.invoke(null, args);
+          Object result = method.invoke(null, args);
+          reference.set(result);
         } catch (Exception ex) {
           ex.printStackTrace();
           System.exit(-1);
@@ -157,6 +211,8 @@ public class BootstrapMain {
     thread.start();
 
     thread.join();
+
+    return reference.get();
   }
 
   private static File getTempDirectory() throws IOException {

@@ -33,13 +33,14 @@ import org.jdesktop.beansbinding.AutoBinding;
 import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.Bindings;
+import org.onebusaway.quickstart.GuiQuickstartDataModel;
 import org.onebusaway.quickstart.bootstrap.gui.widgets.JCustomTextField;
 
 public class TransitDataBundlePathPanel extends JPanel {
 
   private static final long serialVersionUID = 1L;
 
-  private BootstrapDataModel model;
+  private GuiQuickstartDataModel model;
 
   private JCustomTextField transitDataBundlePathTextField;
 
@@ -48,7 +49,7 @@ public class TransitDataBundlePathPanel extends JPanel {
    * 
    * @param model2
    */
-  public TransitDataBundlePathPanel(BootstrapDataModel model) {
+  public TransitDataBundlePathPanel(GuiQuickstartDataModel model) {
     this.model = model;
     setLayout(new MigLayout("", "[450px]", "[][][]"));
 
@@ -78,9 +79,9 @@ public class TransitDataBundlePathPanel extends JPanel {
   }
 
   protected void initDataBindings() {
-    BeanProperty<BootstrapDataModel, String> bootstrapDataModelBeanProperty = BeanProperty.create("transitDataBundlePath");
+    BeanProperty<GuiQuickstartDataModel, String> bootstrapDataModelBeanProperty = BeanProperty.create("transitDataBundlePath");
     BeanProperty<JTextField, String> jTextFieldBeanProperty = BeanProperty.create("text");
-    AutoBinding<BootstrapDataModel, String, JTextField, String> autoBinding = Bindings.createAutoBinding(
+    AutoBinding<GuiQuickstartDataModel, String, JTextField, String> autoBinding = Bindings.createAutoBinding(
         UpdateStrategy.READ_WRITE, model, bootstrapDataModelBeanProperty,
         transitDataBundlePathTextField, jTextFieldBeanProperty);
     autoBinding.bind();

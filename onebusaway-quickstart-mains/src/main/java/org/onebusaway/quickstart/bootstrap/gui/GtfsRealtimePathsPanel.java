@@ -25,13 +25,14 @@ import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.AutoBinding;
 import org.jdesktop.beansbinding.Bindings;
 import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
+import org.onebusaway.quickstart.GuiQuickstartDataModel;
 import org.onebusaway.quickstart.bootstrap.gui.widgets.JCustomTextField;
 
 public class GtfsRealtimePathsPanel extends JPanel {
 
   private static final long serialVersionUID = 1L;
 
-  private BootstrapDataModel model;
+  private GuiQuickstartDataModel model;
 
   private JCustomTextField tripUpdatesUrlTextField;
   private JCustomTextField vehiclePositionsUrlTextField;
@@ -40,7 +41,7 @@ public class GtfsRealtimePathsPanel extends JPanel {
   /**
    * Create the panel.
    */
-  public GtfsRealtimePathsPanel(BootstrapDataModel model) {
+  public GtfsRealtimePathsPanel(GuiQuickstartDataModel model) {
     this.model = model;
 
     setLayout(new MigLayout("", "[450px,grow]", "[][][][][][][]"));
@@ -79,19 +80,19 @@ public class GtfsRealtimePathsPanel extends JPanel {
     alertsUrlTextField.addTextPropertyChangeEvent();
   }
   protected void initDataBindings() {
-    BeanProperty<BootstrapDataModel, String> bootstrapDataModelBeanProperty = BeanProperty.create("tripUpdatesUrl");
+    BeanProperty<GuiQuickstartDataModel, String> bootstrapDataModelBeanProperty = BeanProperty.create("tripUpdatesUrl");
     BeanProperty<JTextField, String> jTextFieldBeanProperty = BeanProperty.create("text");
-    AutoBinding<BootstrapDataModel, String, JTextField, String> autoBinding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, model, bootstrapDataModelBeanProperty, tripUpdatesUrlTextField, jTextFieldBeanProperty);
+    AutoBinding<GuiQuickstartDataModel, String, JTextField, String> autoBinding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, model, bootstrapDataModelBeanProperty, tripUpdatesUrlTextField, jTextFieldBeanProperty);
     autoBinding.bind();
     //
-    BeanProperty<BootstrapDataModel, String> bootstrapDataModelBeanProperty_1 = BeanProperty.create("vehiclePositionsUrl");
+    BeanProperty<GuiQuickstartDataModel, String> bootstrapDataModelBeanProperty_1 = BeanProperty.create("vehiclePositionsUrl");
     BeanProperty<JTextField, String> jTextFieldBeanProperty_1 = BeanProperty.create("text");
-    AutoBinding<BootstrapDataModel, String, JTextField, String> autoBinding_1 = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, model, bootstrapDataModelBeanProperty_1, vehiclePositionsUrlTextField, jTextFieldBeanProperty_1);
+    AutoBinding<GuiQuickstartDataModel, String, JTextField, String> autoBinding_1 = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, model, bootstrapDataModelBeanProperty_1, vehiclePositionsUrlTextField, jTextFieldBeanProperty_1);
     autoBinding_1.bind();
     //
-    BeanProperty<BootstrapDataModel, String> bootstrapDataModelBeanProperty_2 = BeanProperty.create("alertsUrl");
+    BeanProperty<GuiQuickstartDataModel, String> bootstrapDataModelBeanProperty_2 = BeanProperty.create("alertsUrl");
     BeanProperty<JTextField, String> jTextFieldBeanProperty_2 = BeanProperty.create("text");
-    AutoBinding<BootstrapDataModel, String, JTextField, String> autoBinding_2 = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, model, bootstrapDataModelBeanProperty_2, alertsUrlTextField, jTextFieldBeanProperty_2);
+    AutoBinding<GuiQuickstartDataModel, String, JTextField, String> autoBinding_2 = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, model, bootstrapDataModelBeanProperty_2, alertsUrlTextField, jTextFieldBeanProperty_2);
     autoBinding_2.bind();
   }
 }

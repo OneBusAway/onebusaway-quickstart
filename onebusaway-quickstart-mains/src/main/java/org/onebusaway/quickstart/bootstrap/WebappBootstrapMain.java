@@ -16,6 +16,8 @@
 package org.onebusaway.quickstart.bootstrap;
 
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.GnuParser;
@@ -82,6 +84,15 @@ public class WebappBootstrapMain {
     context.setAttribute(WebappCommon.COMMAND_LINE_CONTEXT_ATTRIBUTE, cli);
     server.setHandler(context);
 
+    if (cli.hasOption(WebappCommon.ARG_BUILD)) {
+      System.setProperty("hibernate.hbm2ddl.auto", "update");
+      System.setProperty("bundleCacheDir", bundlePath + "/cache");
+      System.setProperty("gtfsPath",
+          cli.getOptionValue(WebappCommon.ARG_GTFS_PATH));
+      List<String> descriptors = Arrays.asList("/Users/bdferris/oba/onebusaway-quickstart/onebusaway-quickstart-assembly/src/main/assembly/onebusaway-quickstart-webapp/WEB-INF/builder-override-web.xml");
+      context.setOverrideDescriptors(descriptors);
+    }
+
     try {
       server.start();
 
@@ -118,6 +129,8 @@ public class WebappBootstrapMain {
   private static Options createOptions() {
     Options options = new Options();
     options.addOption(ARG_PORT, true, "port (default=8080)");
+    options.addOption(WebappCommon.ARG_BUILD, false, "");
+    options.addOption(WebappCommon.ARG_GTFS_PATH, true, "");
     options.addOption(WebappCommon.ARG_GTFS_REALTIME_TRIP_UPDATES_URL, true, "");
     options.addOption(WebappCommon.ARG_GTFS_REALTIME_VEHICLE_POSITIONS_URL,
         true, "");

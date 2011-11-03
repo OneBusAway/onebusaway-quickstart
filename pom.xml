@@ -15,7 +15,7 @@
   <description>Quickly build and deploy a basic OneBusAway instance</description>
 
   <properties>
-    <onebusaway_version>1.0.0</onebusaway_version>
+    <onebusaway_version>1.0.1-SNAPSHOT</onebusaway_version>
     <distribution_id>nexus.onebusaway.org-releases</distribution_id>
     <distribution_url>http://nexus.onebusaway.org/content/repositories/releases/</distribution_url>
     <snapshot_distribution_id>nexus.onebusaway.org-snapshots</snapshot_distribution_id>

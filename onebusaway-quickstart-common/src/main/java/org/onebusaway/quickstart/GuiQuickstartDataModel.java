@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.onebusaway.quickstart.bootstrap.gui;
+package org.onebusaway.quickstart;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class BootstrapDataModel {
+public class GuiQuickstartDataModel {
 
   public enum EQuickStartType {
     BUILD_ONLY, RUN_ONLY, BUILD_AND_RUN

@@ -20,6 +20,10 @@ public class WebappCommon {
   public static final String COMMAND_LINE_CONTEXT_ATTRIBUTE = WebappCommon.class.getName()
       + ".commandLine";
 
+  public static final String ARG_BUILD = "build";
+
+  public static final String ARG_GTFS_PATH = "gtfsPath";
+
   public static final String ARG_GTFS_REALTIME_TRIP_UPDATES_URL = "gtfsRealtimeTripUpdatesUrl";
 
   public static final String ARG_GTFS_REALTIME_VEHICLE_POSITIONS_URL = "gtfsRealtimeVehiclePositionsUrl";

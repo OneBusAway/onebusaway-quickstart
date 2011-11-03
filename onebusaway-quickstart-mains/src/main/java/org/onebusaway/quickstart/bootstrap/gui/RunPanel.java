@@ -20,6 +20,8 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
 
+import org.onebusaway.quickstart.GuiQuickstartDataModel;
+
 public class RunPanel extends JPanel {
 
   private static final long serialVersionUID = 1L;
@@ -27,7 +29,7 @@ public class RunPanel extends JPanel {
   /**
    * Create the panel.
    */
-  public RunPanel(BootstrapDataModel model) {
+  public RunPanel(GuiQuickstartDataModel model) {
     setLayout(new MigLayout("", "[grow]", "[][][]"));
 
     JTextPane txtReadyToGo = new JTextPane();

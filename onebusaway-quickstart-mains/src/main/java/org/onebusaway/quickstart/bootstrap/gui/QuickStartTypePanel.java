@@ -26,13 +26,14 @@ import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.AutoBinding;
 import org.jdesktop.beansbinding.Bindings;
 import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
+import org.onebusaway.quickstart.GuiQuickstartDataModel;
 import org.onebusaway.quickstart.bootstrap.gui.widgets.PropertyEventHelpers;
 
 public class QuickStartTypePanel extends JPanel {
 
   private static final long serialVersionUID = 1L;
 
-  private BootstrapDataModel model;
+  private GuiQuickstartDataModel model;
   private JRadioButton buildOnlyRadioButton;
   private JRadioButton runOnlyRadioButton;
   private JRadioButton buildAndRunRadioButton;
@@ -40,7 +41,7 @@ public class QuickStartTypePanel extends JPanel {
   /**
    * Create the panel.
    */
-  public QuickStartTypePanel(BootstrapDataModel model) {
+  public QuickStartTypePanel(GuiQuickstartDataModel model) {
     this.model = model;
 
     setLayout(new MigLayout("", "[450px,grow]",
@@ -76,17 +77,17 @@ public class QuickStartTypePanel extends JPanel {
     
   }
   protected void initDataBindings() {
-    BeanProperty<BootstrapDataModel, Boolean> bootstrapDataModelBeanProperty = BeanProperty.create("buildOnly");
+    BeanProperty<GuiQuickstartDataModel, Boolean> bootstrapDataModelBeanProperty = BeanProperty.create("buildOnly");
     BeanProperty<JRadioButton, Boolean> jRadioButtonBeanProperty = BeanProperty.create("selected");
-    AutoBinding<BootstrapDataModel, Boolean, JRadioButton, Boolean> autoBinding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, model, bootstrapDataModelBeanProperty, buildOnlyRadioButton, jRadioButtonBeanProperty);
+    AutoBinding<GuiQuickstartDataModel, Boolean, JRadioButton, Boolean> autoBinding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, model, bootstrapDataModelBeanProperty, buildOnlyRadioButton, jRadioButtonBeanProperty);
     autoBinding.bind();
     //
-    BeanProperty<BootstrapDataModel, Boolean> bootstrapDataModelBeanProperty_1 = BeanProperty.create("runOnly");
-    AutoBinding<BootstrapDataModel, Boolean, JRadioButton, Boolean> autoBinding_1 = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, model, bootstrapDataModelBeanProperty_1, runOnlyRadioButton, jRadioButtonBeanProperty);
+    BeanProperty<GuiQuickstartDataModel, Boolean> bootstrapDataModelBeanProperty_1 = BeanProperty.create("runOnly");
+    AutoBinding<GuiQuickstartDataModel, Boolean, JRadioButton, Boolean> autoBinding_1 = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, model, bootstrapDataModelBeanProperty_1, runOnlyRadioButton, jRadioButtonBeanProperty);
     autoBinding_1.bind();
     //
-    BeanProperty<BootstrapDataModel, Boolean> bootstrapDataModelBeanProperty_2 = BeanProperty.create("buildAndRun");
-    AutoBinding<BootstrapDataModel, Boolean, JRadioButton, Boolean> autoBinding_2 = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, model, bootstrapDataModelBeanProperty_2, buildAndRunRadioButton, jRadioButtonBeanProperty);
+    BeanProperty<GuiQuickstartDataModel, Boolean> bootstrapDataModelBeanProperty_2 = BeanProperty.create("buildAndRun");
+    AutoBinding<GuiQuickstartDataModel, Boolean, JRadioButton, Boolean> autoBinding_2 = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, model, bootstrapDataModelBeanProperty_2, buildAndRunRadioButton, jRadioButtonBeanProperty);
     autoBinding_2.bind();
   }
 }

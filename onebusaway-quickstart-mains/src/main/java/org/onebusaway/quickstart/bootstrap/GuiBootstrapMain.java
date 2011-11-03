@@ -16,16 +16,12 @@
 package org.onebusaway.quickstart.bootstrap;
 
 import java.io.IOException;
-import java.net.URL;
-import java.security.ProtectionDomain;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 import javax.swing.JDialog;
 
-import org.onebusaway.quickstart.bootstrap.gui.BootstrapDataModel;
+import org.onebusaway.quickstart.GuiQuickstartDataModel;
 import org.onebusaway.quickstart.bootstrap.gui.GtfsPathWizardPanelController;
 import org.onebusaway.quickstart.bootstrap.gui.GtfsRealtimePathsWizardPanelController;
 import org.onebusaway.quickstart.bootstrap.gui.QuickStartTypeWizardPanelController;
@@ -41,9 +37,11 @@ import org.onebusaway.quickstart.bootstrap.gui.wizard.WizardDialog;
  * @author bdferris
  */
 public class GuiBootstrapMain {
-  public static void main(String[] args) throws IOException, Exception {
 
-    final BootstrapDataModel model = new BootstrapDataModel();
+  public static GuiQuickstartDataModel configureBootstrapArgs()
+      throws IOException, Exception {
+
+    final GuiQuickstartDataModel model = new GuiQuickstartDataModel();
     loadModel(model);
 
     WizardController controller = new WizardController();
@@ -71,35 +69,10 @@ public class GuiBootstrapMain {
     if (controller.getCompletionState() == ECompletionState.CANCELLED)
       System.exit(0);
 
-    if (model.isBuildEnabled()) {
-      System.out.println("=== BUILDING A TRANSIT DATA BUNDLE ===");
-      String gtfsPath = model.getGtfsPath();
-      String bundlePath = model.getTransitDataBundlePath();
-      BuildBootstrapMain.main(new String[] {gtfsPath, bundlePath});
-    }
-    
-    if (model.isRunEnabled()) {
-      System.out.println("=== RUNNING THE WEBAPP ===");
-      ProtectionDomain protectionDomain = GuiBootstrapMain.class.getProtectionDomain();
-      URL warUrl = protectionDomain.getCodeSource().getLocation();
-      List<String> runArgs = new ArrayList<String>();
-      if (model.getTripUpdatesUrl() != null) {
-        runArgs.add("-gtfsRealtimeTripUpdatesUrl=" + model.getTripUpdatesUrl());
-      }
-      if (model.getVehiclePositionsUrl() != null) {
-        runArgs.add("-gtfsRealtimeVehiclePositionsUrl="
-            + model.getVehiclePositionsUrl());
-      }
-      if (model.getAlertsUrl() != null) {
-        runArgs.add("-gtfsRealtimeAlertsUrl=" + model.getAlertsUrl());
-      }
-      runArgs.add(model.getTransitDataBundlePath());
-      WebappBootstrapMain.run(warUrl,
-          runArgs.toArray(new String[runArgs.size()]));
-    }
+    return model;
   }
 
-  private static void loadModel(BootstrapDataModel model) {
+  private static void loadModel(GuiQuickstartDataModel model) {
     Preferences preferences = Preferences.userNodeForPackage(GuiBootstrapMain.class);
     model.setTransitDataBundlePath(preferences.get("transitDataBundlePath",
         null));
@@ -109,7 +82,7 @@ public class GuiBootstrapMain {
     model.setAlertsUrl(preferences.get("alertsUrl", null));
   }
 
-  private static void saveModel(BootstrapDataModel model) {
+  private static void saveModel(GuiQuickstartDataModel model) {
     Preferences preferences = Preferences.userNodeForPackage(GuiBootstrapMain.class);
     updatePreferences(preferences, "transitDataBundlePath",
         model.getTransitDataBundlePath());

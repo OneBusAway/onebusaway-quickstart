@@ -17,14 +17,15 @@ package org.onebusaway.quickstart.bootstrap.gui;
 
 import javax.swing.JPanel;
 
+import org.onebusaway.quickstart.GuiQuickstartDataModel;
 import org.onebusaway.quickstart.bootstrap.gui.wizard.AbstractWizardPanelController;
 
 public class QuickStartTypeWizardPanelController extends
     AbstractWizardPanelController {
 
-  private BootstrapDataModel model;
+  private GuiQuickstartDataModel model;
 
-  public QuickStartTypeWizardPanelController(BootstrapDataModel model) {
+  public QuickStartTypeWizardPanelController(GuiQuickstartDataModel model) {
     this.model = model;
   }
 
