@@ -1,5 +1,9 @@
 Developer Notes
 
+  Looking for Developer Notes for OneBusAway itself?  Check out our code-site:
+  
+  {{{http://code.google.com/p/onebusaway}http://code.google.com/p/onebusaway}}
+  
   The <<<onebusaway-quickstart>>> module constructs an executable war that can be used to both build a transit data
 bundle and then host an embedded Jetty webapp instance for that transit data bundle.  The Maven modules used to
 construct the quickstart executable war are a bit complicated, so we document them here.

@@ -24,6 +24,7 @@ import javax.swing.JDialog;
 import org.onebusaway.quickstart.GuiQuickstartDataModel;
 import org.onebusaway.quickstart.bootstrap.gui.GtfsPathWizardPanelController;
 import org.onebusaway.quickstart.bootstrap.gui.GtfsRealtimePathsWizardPanelController;
+import org.onebusaway.quickstart.bootstrap.gui.JConsoleDialog;
 import org.onebusaway.quickstart.bootstrap.gui.QuickStartTypeWizardPanelController;
 import org.onebusaway.quickstart.bootstrap.gui.RunWizardPanelController;
 import org.onebusaway.quickstart.bootstrap.gui.TransitDataBundlePathWizardPanelController;
@@ -68,6 +69,10 @@ public class GuiBootstrapMain {
 
     if (controller.getCompletionState() == ECompletionState.CANCELLED)
       System.exit(0);
+
+    JConsoleDialog console = new JConsoleDialog();
+    console.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+    console.setVisible(true);
 
     return model;
   }

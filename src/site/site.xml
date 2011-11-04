@@ -11,7 +11,7 @@
         <menu name="Home">
             <item name="About" href="/index.html" />
             <item name="Release Notes" href="/release-notes.html"/>
-            <item name="DeveloperNotes" href="/developer-notes.html"/>
+            <item name="Developer Notes" href="/developer-notes.html"/>
             <item name="API Javadoc" href="/apidocs/index.html"/>
         </menu>
         <menu ref="reports" />

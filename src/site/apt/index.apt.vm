@@ -4,6 +4,7 @@ onebusaway-quickstart
 This can be a good way to evaluate OneBusAway without getting bogged down in more complex deployment scenarios. 
   
   <<Quickstart Version:>> ${currentVersion}
+  
   <<OneBusAway Version:>> {{{../../onebusaway-application-modules/${onebusaway_version}/index.html}${onebusaway_version}}}
   
 * What is OneBusAway?
@@ -13,13 +14,12 @@ across a variety of interfaces.  It includes interfaces for the web, phone, sms,
 that powers a number of mobile applications.  For more information on these features, see the
 {{{../../onebusaway-application-modules/${onebusaway_version}/index.html}application suite documentation}}.
   
-* Quick-Start
+Prerequisites
 
-** Prerequisites
+  At a bare minimum, you'll need {{{http://www.java.com/en/}Java}} installed on your system.  You will also need the
+following:
 
-  At a bare minimum, you'll need {{{http://www.java.com/en/}Java}} installed on your system along.
-
-** Transit Data
+* Transit Data
 
   You will need transit data to power your OneBusAway installation.  At minimum, you'll need
 {{{http://code.google.com/transit/spec/transit_feed_specification.html}GTFS}} static schedule data feed for your target
@@ -27,7 +27,7 @@ transit agency.  Optionally, but ideally, you will also need real-time data for 
 supports real-time data for delays, service alerts, and vehicle positions in the
 {{{http://code.google.com/transit/realtime/}GTFS-realtime}} format or the {{{http://siri.org.uk/}SIRI}} format.
 
-** Download a Quickstart Bundle
+* Download a Quickstart Bundle
 
 #set( $webapp_url = 'http://nexus.onebusaway.org/service/local/artifact/maven/content?r=snapshots&g=org.onebusaway&a=onebusaway-quickstart-assembly&c=webapp&e=war&v=' + ${currentVersion} )
 #set( $api_webapp_url = 'http://nexus.onebusaway.org/service/local/artifact/maven/content?r=snapshots&g=org.onebusaway&a=onebusaway-quickstart-assembly&c=api-webapp&e=war&v=' + ${currentVersion} )
@@ -38,15 +38,51 @@ supports real-time data for delays, service alerts, and vehicle positions in the
     
     * The API-only webapp: {{{${api_webapp_url}}onebusaway-quickstart-assembly-api-webapp.war}} - Includes just the {{{../../onebusaway-application-modules/${onebusaway_version}/api/where/index.html}REST API}}
 
-** Build a Transit Data Bundle
+Let's Go!
 
-  We'll use the OneBusAway quick-start app to build a transit data bundle: an optimized bundle of data built on top of the raw transit data designed to power the OneBusAway apps.  Once built, we spin up the most common webapps using the bundle.  
+  Running OneBusAway is a two-step process:
   
-  Run <<<java -Xmx1G -server -jar onebusaway-quickstart-assembly.war -build path/to/gtfs.zip path/to/created-transit-bundle>>>
+  [[1]] Build a transit data bundle: raw transit data is processed into an optimized bundle, geared for fast access.
   
-** Run the Webapp
+  [[2]] Run the OneBusAway webapp: actually start the OneBusAway web applications, using the transit data bundle.
+  
+  []
+  
+  You can perform these two steps either using our simple GUI configuration tool or from the command-line.
+  
+* Using the GUI
 
-  Run <<< java -Xmx1G -server -jar onebusaway-quickstart-assembly.war -webapp path/to/created-transit-bundle>>>
+  We provide a simple wizard to help you configure and run the OneBusAway quick-start application.  Simply double-click
+the downloaded quick-start war file.  Follow the steps and you'll be up and running in no time.
+
+[QuickStartGui.png]
+
+  <<NOTE:>> You may need to run the OneBusAway quick-start GUI from the command-line if you want to pass additional
+options to <<<java>>>, like specifying more memory or server optimization:
+
++---+
+java -Xmx1G -server -jar onebusaway-quickstart-assembly.war 
++---+
+
+* Using the Command-Line
+
+  First, build your transit data bundle:
+     
++---+  
+java -Xmx1G -server -jar onebusaway-quickstart-assembly.war -build path/to/gtfs.zip path/to/created-transit-bundle
++---+
+  
+  Next, run the webapp:
+
++---+  
+java -Xmx1G -server -jar onebusaway-quickstart-assembly.war -webapp path/to/created-transit-bundle
++---+
   
   Once the webapp has finished startup, browse to {{{http://localhost:8080/}http://localhost:8080/}}
   
+  To see more options for configuring the build and the webapp, including adding real-time information, specify the
+<<<-help>>> option to get full usage instructions:
+
++---+  
+java -jar onebusaway-quickstart-assembly.war -help
++---+
