@@ -2,9 +2,13 @@ package org.onebusaway.quickstart.bootstrap.gui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -27,23 +31,10 @@ public class JConsoleDialog extends JDialog {
   private final JTextPane _consoleTextPane = new JTextPane();
 
   /**
-   * Launch the application.
-   */
-  public static void main(String[] args) {
-    try {
-      JConsoleDialog dialog = new JConsoleDialog();
-      dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-      dialog.setVisible(true);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  /**
    * Create the dialog.
    */
-  public JConsoleDialog() {
-    setBounds(100, 100, 450, 300);
+  public JConsoleDialog(String consoleLogPath) {
+    setBounds(100, 100, 900, 300);
     getContentPane().setLayout(new BorderLayout());
     contentPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
     getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -72,8 +63,29 @@ public class JConsoleDialog extends JDialog {
         buttonPane.add(cancelButton);
       }
     }
-    System.setOut(new PrintStream(new ConsoleOutputStream(System.out)));
-    System.setErr(new PrintStream(new ConsoleOutputStream(System.err)));
+
+    OutputStream additionalOutput = null;
+    if (consoleLogPath != null) {
+      try {
+        additionalOutput = new BufferedOutputStream(new FileOutputStream(
+            consoleLogPath));
+      } catch (IOException ex) {
+        throw new IllegalStateException(ex);
+      }
+    }
+    System.setOut(new PrintStream(new ConsoleOutputStream(removeNulls(
+        System.out, additionalOutput))));
+    System.setErr(new PrintStream(new ConsoleOutputStream(removeNulls(
+        System.err, additionalOutput))));
+  }
+
+  private OutputStream[] removeNulls(OutputStream... values) {
+    List<OutputStream> nonNull = new ArrayList<OutputStream>();
+    for (OutputStream out : values) {
+      if (out != null)
+        nonNull.add(out);
+    }
+    return nonNull.toArray(new OutputStream[nonNull.size()]);
   }
 
   private void updateTextPane(final String value) {
@@ -93,27 +105,30 @@ public class JConsoleDialog extends JDialog {
 
   private class ConsoleOutputStream extends OutputStream {
 
-    private PrintStream _original;
+    private final OutputStream[] _outputs;
 
-    public ConsoleOutputStream(PrintStream out) {
-      _original = out;
+    public ConsoleOutputStream(OutputStream... outputs) {
+      _outputs = outputs;
     }
 
     @Override
     public void write(int b) throws IOException {
-      _original.write(b);
+      for (OutputStream out : _outputs)
+        out.write(b);
       updateTextPane(String.valueOf((char) b));
     }
 
     @Override
     public void write(byte[] b) throws IOException {
-      _original.write(b);
+      for (OutputStream out : _outputs)
+        out.write(b);
       updateTextPane(new String(b));
     }
 
     @Override
     public void write(byte[] b, int off, int len) throws IOException {
-      _original.write(b, off, len);
+      for (OutputStream out : _outputs)
+        out.write(b, off, len);
       updateTextPane(new String(b, off, len));
     }
   }

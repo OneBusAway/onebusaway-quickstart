@@ -34,20 +34,16 @@
     </dependency>
     <dependency>
       <groupId>org.onebusaway</groupId>
-      <artifactId>onebusaway-webapp</artifactId>
+      <artifactId>onebusaway-combined-webapp</artifactId>
       <version>${onebusaway_version}</version>
+      <classifier>api-only</classifier>
       <type>war</type>
-    </dependency>
+    </dependency>    
     <dependency>
       <groupId>org.onebusaway</groupId>
-      <artifactId>onebusaway-api-webapp</artifactId>
+      <artifactId>onebusaway-combined-webapp</artifactId>
       <version>${onebusaway_version}</version>
-      <type>war</type>
-    </dependency>
-    <dependency>
-      <groupId>org.onebusaway</groupId>
-      <artifactId>onebusaway-transit-data-federation-webapp</artifactId>
-      <version>${onebusaway_version}</version>
+      <classifier>full</classifier>
       <type>war</type>
     </dependency>
     <dependency>

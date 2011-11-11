@@ -101,27 +101,26 @@ public class BootstrapMain {
           runArgs.add("-gtfsRealtimeAlertsUrl=" + model.getAlertsUrl());
         }
         runArgs.add(model.getTransitDataBundlePath());
-        performRun(warUrl, tmpDir, runArgs.toArray(new String[runArgs.size()]));
+        performRun(warUrl, tmpDir, false, runArgs.toArray(new String[runArgs.size()]));
       }
-      System.exit(0);
-    }
-
-    String firstArg = args[0];
-    String[] subArgs = new String[args.length - 1];
-    System.arraycopy(args, 1, subArgs, 0, subArgs.length);
-
-    if ("-build".equals(firstArg)) {
-
-      performBuild(warUrl, tmpDir, subArgs);
-
-    } else if ("-webapp".equals(firstArg)) {
-
-      performRun(warUrl, tmpDir, subArgs);
-
     } else {
-      System.err.println("unexpected first arg: " + firstArg);
-      usage();
-      System.exit(-1);
+      String firstArg = args[0];
+      String[] subArgs = new String[args.length - 1];
+      System.arraycopy(args, 1, subArgs, 0, subArgs.length);
+
+      if ("-build".equals(firstArg)) {
+
+        performBuild(warUrl, tmpDir, subArgs);
+
+      } else if ("-webapp".equals(firstArg)) {
+
+        performRun(warUrl, tmpDir, true, subArgs);
+
+      } else {
+        System.err.println("unexpected first arg: " + firstArg);
+        usage();
+        System.exit(-1);
+      }
     }
   }
 
@@ -158,7 +157,7 @@ public class BootstrapMain {
     invokeWithProperClassloader(classloader, method, (Object) subArgs);
   }
 
-  private static void performRun(URL warUrl, File tmpDir, String[] subArgs)
+  private static void performRun(URL warUrl, File tmpDir, boolean consoleMode, String[] subArgs)
       throws ClassNotFoundException, NoSuchMethodException,
       InterruptedException {
 
@@ -180,8 +179,8 @@ public class BootstrapMain {
     URLClassLoader classloader = bootstrapClasspath(warUrl, tmpDir, false);
 
     Class<?> c = classloader.loadClass("org.onebusaway.quickstart.bootstrap.WebappBootstrapMain");
-    Method method = c.getMethod("run", URL.class, String[].class);
-    invokeWithProperClassloader(classloader, method, warUrl, subArgs);
+    Method method = c.getMethod("run", URL.class, Boolean.TYPE, String[].class);
+    invokeWithProperClassloader(classloader, method, warUrl, consoleMode, subArgs);
   }
 
   private static boolean isHelp(String option) {

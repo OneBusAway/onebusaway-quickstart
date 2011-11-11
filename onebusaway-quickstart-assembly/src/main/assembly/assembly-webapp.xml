@@ -15,16 +15,12 @@
   <dependencySets>
     <dependencySet>
       <includes>
-        <include>org.onebusaway:onebusaway-webapp:war</include>
-        <include>org.onebusaway:onebusaway-api-webapp:war</include>
+        <include>org.onebusaway:onebusaway-combined-webapp:war:full</include>
       </includes>
       <outputDirectory>/</outputDirectory>
       <unpack>true</unpack>
       <unpackOptions>
         <excludes>
-          <exclude>WEB-INF/web.xml</exclude>
-          <exclude>WEB-INF/classes/data-sources*.xml</exclude>
-          <exclude>WEB-INF/classes/struts.xml</exclude>
           <exclude>WEB-INF/lib/commons-cli*.jar</exclude>
         </excludes>
       </unpackOptions>

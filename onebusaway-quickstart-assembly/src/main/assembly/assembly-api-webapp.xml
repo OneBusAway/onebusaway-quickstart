@@ -14,14 +14,12 @@
   <dependencySets>
     <dependencySet>
       <includes>
-        <include>org.onebusaway:onebusaway-api-webapp:war</include>
+        <include>org.onebusaway:onebusaway-combined-webapp:war:api-only</include>
       </includes>
       <outputDirectory>/</outputDirectory>
       <unpack>true</unpack>
       <unpackOptions>
         <excludes>
-          <exclude>WEB-INF/web.xml</exclude>
-          <exclude>WEB-INF/classes/data-sources*.xml</exclude>
           <exclude>WEB-INF/lib/commons-cli*.jar</exclude>
         </excludes>
       </unpackOptions>

@@ -15,6 +15,7 @@
  */
 package org.onebusaway.quickstart.bootstrap;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
@@ -70,7 +71,11 @@ public class GuiBootstrapMain {
     if (controller.getCompletionState() == ECompletionState.CANCELLED)
       System.exit(0);
 
-    JConsoleDialog console = new JConsoleDialog();
+    String path = model.getTransitDataBundlePath();
+    new File(path).mkdirs();
+
+    JConsoleDialog console = new JConsoleDialog(
+        new File(path, "console.log").getAbsolutePath());
     console.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     console.setVisible(true);
 

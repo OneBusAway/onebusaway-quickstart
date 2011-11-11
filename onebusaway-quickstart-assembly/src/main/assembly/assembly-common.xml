@@ -89,25 +89,5 @@
       <unpack>false</unpack>
       <useTransitiveFiltering>true</useTransitiveFiltering>
     </dependencySet>
-    <!--
-      Here is where we actually construct the bulk of the webapp.  We copy in the
-      onebusaway-transit-data-federation-webapp into the root of our executable WAR>
-    -->
-    <dependencySet>
-      <includes>
-        <include>org.onebusaway:onebusaway-transit-data-federation-webapp:war</include>
-      </includes>
-      <outputDirectory>/</outputDirectory>
-      <unpack>true</unpack>
-      <unpackOptions>
-        <!-- We exclude a number of files that will be overwritten by the custom quickstart war. -->
-        <excludes>
-          <exclude>WEB-INF/web.xml</exclude>
-          <exclude>WEB-INF/classes/data-sources*.xml</exclude>
-          <exclude>WEB-INF/classes/struts.xml</exclude>
-          <exclude>WEB-INF/lib/commons-cli*.jar</exclude>
-        </excludes>
-      </unpackOptions>
-    </dependencySet>
   </dependencySets>
 </component>

@@ -27,6 +27,8 @@
         <param-value>
             classpath:data-sources.xml
             classpath:org/onebusaway/api/application-context-webapp.xml
+            classpath:org/onebusaway/phone/application-context-webapp.xml
+            classpath:org/onebusaway/sms/application-context-webapp.xml
             classpath:org/onebusaway/webapp/application-context-webapp.xml
             classpath:org/onebusaway/transit_data_federation/application-context-webapp.xml
             classpath:org/onebusaway/quickstart/bootstrap/application-context-bundle-creator.xml
