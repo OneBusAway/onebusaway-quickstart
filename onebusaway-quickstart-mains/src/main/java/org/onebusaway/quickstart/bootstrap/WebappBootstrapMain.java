@@ -15,17 +15,7 @@
  */
 package org.onebusaway.quickstart.bootstrap;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.List;
-import java.util.jar.JarFile;
-import java.util.zip.ZipEntry;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.GnuParser;
@@ -98,9 +88,6 @@ public class WebappBootstrapMain {
       System.setProperty("bundleCacheDir", bundlePath + "/cache");
       System.setProperty("gtfsPath",
           cli.getOptionValue(WebappCommon.ARG_GTFS_PATH));
-      //File tmpBuilderOverrideFile = getPathToBuilderOverrideWebXmlFile(warUrl);
-      //List<String> descriptors = Arrays.asList(tmpBuilderOverrideFile.getAbsolutePath());
-      //context.setOverrideDescriptors(descriptors);
       context.addOverrideDescriptor("/WEB-INF/builder-override-web.xml");
     }
 
@@ -152,40 +139,5 @@ public class WebappBootstrapMain {
     options.addOption(WebappCommon.ARG_GTFS_REALTIME_ALERTS_URL, true, "");
     options.addOption(WebappCommon.ARG_GTFS_REALTIME_REFRESH_INTERVAL, true, "");
     return options;
-  }
-
-  /**
-   * The builder-override-web.xml file is bundled in the WAR file, but Jetty
-   * needs to read it from an actual file. So we extract it to a tmp file and
-   * use that.
-   * 
-   * @param warUrl
-   * @return
-   * @throws IOException
-   * @throws FileNotFoundException
-   */
-  private static File getPathToBuilderOverrideWebXmlFile(URL warUrl)
-      throws IOException, FileNotFoundException {
-    JarFile jar = new JarFile(warUrl.getFile());
-    ZipEntry entry = jar.getEntry("/WEB-INF/builder-override-web.xml");
-    if (entry == null) {
-      throw new IllegalStateException(
-          "could not find builder-override-web.xml resource in WAR");
-    }
-    InputStream in = jar.getInputStream(entry);
-    File tmpBuilderOverrideFile = File.createTempFile("builder-override-web-",
-        ".xml");
-    tmpBuilderOverrideFile.deleteOnExit();
-    OutputStream out = new FileOutputStream(tmpBuilderOverrideFile);
-    byte[] buffer = new byte[1024];
-    while (true) {
-      int rc = in.read(buffer);
-      if (rc == -1)
-        break;
-      out.write(buffer, 0, rc);
-    }
-    in.close();
-    out.close();
-    return tmpBuilderOverrideFile;
   }
 }
