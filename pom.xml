@@ -7,7 +7,7 @@
   </parent>
   <groupId>org.onebusaway</groupId>
   <artifactId>onebusaway-quickstart</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>onebusaway-quickstart</name>
@@ -29,9 +29,9 @@
   </repositories>
 
   <scm>
-    <connection>scm:svn:http://onebusaway.googlecode.com/svn/onebusaway-quickstart/tags/onebusaway-quickstart-1.0.1</connection>
-    <developerConnection>scm:svn:https://onebusaway.googlecode.com/svn/onebusaway-quickstart/tags/onebusaway-quickstart-1.0.1</developerConnection>
-    <url>http://code.google.com/p/onebusaway/source/browse/#svn/onebusaway-quickstart/tags/onebusaway-quickstart-1.0.1</url>
+    <connection>scm:svn:http://onebusaway.googlecode.com/svn/onebusaway-quickstart/trunk</connection>
+    <developerConnection>scm:svn:https://onebusaway.googlecode.com/svn/onebusaway-quickstart/trunk</developerConnection>
+    <url>http://code.google.com/p/onebusaway/source/browse/#svn/onebusaway-quickstart/trunk</url>
   </scm>
 
   <distributionManagement>
