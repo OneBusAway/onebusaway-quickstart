@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>onebusaway</artifactId>
@@ -8,7 +7,7 @@
   </parent>
   <groupId>org.onebusaway</groupId>
   <artifactId>onebusaway-quickstart</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.0.1</version>
   <packaging>pom</packaging>
 
   <name>onebusaway-quickstart</name>
@@ -30,9 +29,9 @@
   </repositories>
 
   <scm>
-    <connection>scm:svn:http://onebusaway.googlecode.com/svn/onebusaway-quickstart/trunk</connection>
-    <developerConnection>scm:svn:https://onebusaway.googlecode.com/svn/onebusaway-quickstart/trunk</developerConnection>
-    <url>http://code.google.com/p/onebusaway/source/browse/#svn/onebusaway-quickstart/trunk</url>
+    <connection>scm:svn:http://onebusaway.googlecode.com/svn/onebusaway-quickstart/tags/onebusaway-quickstart-1.0.1</connection>
+    <developerConnection>scm:svn:https://onebusaway.googlecode.com/svn/onebusaway-quickstart/tags/onebusaway-quickstart-1.0.1</developerConnection>
+    <url>http://code.google.com/p/onebusaway/source/browse/#svn/onebusaway-quickstart/tags/onebusaway-quickstart-1.0.1</url>
   </scm>
 
   <distributionManagement>
