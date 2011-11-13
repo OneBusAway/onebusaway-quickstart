@@ -29,8 +29,8 @@ supports real-time data for delays, service alerts, and vehicle positions in the
 
 * Download a Quickstart Bundle
 
-#set( $webapp_url = 'http://nexus.onebusaway.org/service/local/artifact/maven/content?r=snapshots&g=org.onebusaway&a=onebusaway-quickstart-assembly&c=webapp&e=war&v=' + ${currentVersion} )
-#set( $api_webapp_url = 'http://nexus.onebusaway.org/service/local/artifact/maven/content?r=snapshots&g=org.onebusaway&a=onebusaway-quickstart-assembly&c=api-webapp&e=war&v=' + ${currentVersion} )
+#set( $webapp_url = 'http://nexus.onebusaway.org/service/local/artifact/maven/content?r=public&g=org.onebusaway&a=onebusaway-quickstart-assembly&c=webapp&e=war&v=' + ${currentVersion} )
+#set( $api_webapp_url = 'http://nexus.onebusaway.org/service/local/artifact/maven/content?r=public&g=org.onebusaway&a=onebusaway-quickstart-assembly&c=api-webapp&e=war&v=' + ${currentVersion} )
 
   You need to download one of the quickstart bundles.  Pick a bundle based on what features you are interested in:  
   
