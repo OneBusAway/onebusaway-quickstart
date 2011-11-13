@@ -83,6 +83,15 @@ public class WebappBootstrapMain {
     context.setAttribute(WebappCommon.COMMAND_LINE_CONTEXT_ATTRIBUTE, cli);
     server.setHandler(context);
 
+    /**
+     * We specify a Jetty override descriptor to inject additional definitions
+     * into our web.xml configuration. Specifically, we specify a
+     * <context-param> to specify the "contextClass" that will be used to create
+     * our Spring ApplicationContext. We create a custom version that will
+     * inject additional beans based on command-line arguments.
+     */
+    context.addOverrideDescriptor("/WEB-INF/override-web.xml");
+
     if (cli.hasOption(WebappCommon.ARG_BUILD)) {
       System.setProperty("hibernate.hbm2ddl.auto", "update");
       System.setProperty("bundleCacheDir", bundlePath + "/cache");

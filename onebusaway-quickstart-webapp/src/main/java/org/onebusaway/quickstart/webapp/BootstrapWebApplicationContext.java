@@ -46,6 +46,8 @@ public class BootstrapWebApplicationContext extends XmlWebApplicationContext {
   protected void loadBeanDefinitions(DefaultListableBeanFactory beanFactory)
       throws BeansException, IOException {
     super.loadBeanDefinitions(beanFactory);
+    
+    System.out.println("=== BootstrapWebApplicationContext! ============================");
 
     ServletContext servletContext = getServletContext();
     final CommandLine cli = (CommandLine) servletContext.getAttribute(WebappCommon.COMMAND_LINE_CONTEXT_ATTRIBUTE);
@@ -93,6 +95,7 @@ public class BootstrapWebApplicationContext extends XmlWebApplicationContext {
         bean.addPropertyValue("refreshInterval", refreshInterval);
       }
       beanDefinitions.put("gtfsRealtimeSource", bean.getBeanDefinition());
+      System.out.println("=== GTFS REALTIME! ============================");
     }
   }
 
