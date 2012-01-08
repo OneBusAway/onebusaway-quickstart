@@ -5,7 +5,6 @@
     <groupId>org.onebusaway</groupId>
     <version>1.0.2-SNAPSHOT</version>
   </parent>
-  <groupId>org.onebusaway</groupId>
   <artifactId>onebusaway-quickstart-common</artifactId>
   <name>onebusaway-quickstart-common</name>
   <description>Common classes and resources shared between the different quickstart components</description>

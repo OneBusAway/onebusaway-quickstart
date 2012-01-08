@@ -5,7 +5,6 @@
     <groupId>org.onebusaway</groupId>
     <version>1.0.2-SNAPSHOT</version>
   </parent>
-  <groupId>org.onebusaway</groupId>
   <artifactId>onebusaway-quickstart-assembly</artifactId>
   <packaging>pom</packaging>
 
@@ -70,7 +69,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.2.1</version>
         <executions>
           <execution>
             <phase>package</phase>
